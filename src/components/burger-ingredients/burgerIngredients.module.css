@@ -1,7 +1,45 @@
+.constructor {
+  max-width: 600px;
+}
+
 .list {
   list-style-type: none;
   margin: 0;
+  padding: 0;
 }
+.list_types {
+  composes: list;
+  max-height: calc(100vh - 284px);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.list_types::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list_types::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.list_types::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+.list_ingredients {
+  composes: list;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 24px;
+  row-gap: 32px;
+}
+
 .card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  text-align: center;
+  min-height: 48px;
 }

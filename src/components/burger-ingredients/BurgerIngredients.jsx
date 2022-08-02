@@ -9,16 +9,22 @@ import { data } from "../../utils/data.js";
 
 const getItems = (data, type) => {
   return (
-    <ul>
+    <ul className={styles.list_ingredients}>
       {data
         .filter((item) => item.type === type)
         .map((item) => (
           <div className={styles.card}>
             <Counter count={1} size="default" />
             <img src={item.image} />
-            <h2 className="text text_type_digits-default">{item.price}</h2>
-            <CurrencyIcon type="primary" />
-            <h4 className="text text_type_main-default">{item.name}</h4>
+            <div className="mt-1 mb-1">
+              <span className="text text_type_digits-default mr-2">
+                {item.price}
+              </span>
+              <CurrencyIcon type="primary" />
+            </div>
+            <h4 className={`${styles.name} text text_type_main-default`}>
+              {item.name}
+            </h4>
           </div>
         ))}
     </ul>
@@ -28,20 +34,20 @@ const getItems = (data, type) => {
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
   return (
-    <section>
+    <section className={styles.constructor}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <div style={{ display: "flex" }}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab valua="souce" active={current === "sauce"} onClick={setCurrent}>
+        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
           Соусы
         </Tab>
         <Tab value="main" active={current === "main"} onClick={setCurrent}>
           Начинки
         </Tab>
       </div>
-      <ul className={styles.list}>
+      <ul className={styles.list_types}>
         <li>
           <h3 className="text text_type_main-medium mt-10 mb-6">Булки</h3>
           {getItems(data, "bun")}
