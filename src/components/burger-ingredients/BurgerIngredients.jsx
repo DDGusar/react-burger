@@ -13,7 +13,7 @@ const getItems = (data, type) => {
       {data
         .filter((item) => item.type === type)
         .map((item) => (
-          <div className={styles.card}>
+          <div className={styles.card} key={item._id}>
             <Counter count={1} size="default" />
             <img src={item.image} />
             <div className="mt-1 mb-1">
