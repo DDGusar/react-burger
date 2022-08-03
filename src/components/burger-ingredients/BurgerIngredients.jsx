@@ -34,7 +34,7 @@ const getItems = (data, type) => {
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
   return (
-    <section className={styles.constructor}>
+    <section className={styles.ingredients}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <div style={{ display: "flex" }}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>

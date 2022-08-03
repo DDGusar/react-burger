@@ -1,0 +1,52 @@
+.constructor {
+  max-width: 600px;
+  grid-area: constructor;
+  box-sizing: border-box;
+}
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.list_toppings {
+  composes: list;
+  max-height: calc(100vh - 284px - 292px);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.list_toppings::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list_toppings::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.list_toppings::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.item__topping {
+  width: 100%;
+}
+.item__topping:last-child {
+  padding: 0;
+}
+.order {
+  display: grid;
+  grid-template-columns: 1fr 215px;
+  align-items: center;
+}
+.total_price {
+  justify-self: end;
+  box-sizing: border-box;
+}
+/* .currency {
+  width: 36px;
+  height: 36px;
+} */

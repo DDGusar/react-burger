@@ -5,6 +5,7 @@
   grid-template-columns: 1fr max-content 1fr;
   align-items: center;
   box-sizing: border-box;
+  grid-area: header;
 }
 
 .list {

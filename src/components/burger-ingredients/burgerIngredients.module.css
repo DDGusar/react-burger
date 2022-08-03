@@ -1,5 +1,6 @@
-.constructor {
+.ingredients {
   max-width: 600px;
+  grid-area: ingredients;
 }
 
 .list {
@@ -9,7 +10,7 @@
 }
 .list_types {
   composes: list;
-  max-height: calc(100vh - 284px);
+  max-height: calc(100vh - 284px - 40px);
   overflow-y: scroll;
   scrollbar-width: thin;
 }
