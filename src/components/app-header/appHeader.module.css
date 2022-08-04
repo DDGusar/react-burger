@@ -1,5 +1,5 @@
 .header {
-  max-width: 1280px;
+  width: 100%;
   margin: auto;
   display: grid;
   grid-template-columns: 1fr max-content 1fr;
@@ -21,6 +21,9 @@
 .list__item {
   display: flex;
   column-gap: 8px;
+}
+.list__item:first-child {
+  padding-left: 0;
 }
 
 .profile {

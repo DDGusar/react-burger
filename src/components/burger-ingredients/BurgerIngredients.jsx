@@ -13,19 +13,17 @@ const getItems = (data, type) => {
       {data
         .filter((item) => item.type === type)
         .map((item) => (
-          <div className={styles.card} key={item._id}>
+          <li className={styles.card} key={item._id}>
             <Counter count={1} size="default" />
             <img src={item.image} />
-            <div className="mt-1 mb-1">
-              <span className="text text_type_digits-default mr-2">
-                {item.price}
-              </span>
+            <div className={`${styles.price} mt-2 mb-2`}>
+              <p className="text text_type_digits-default mr-2">{item.price}</p>
               <CurrencyIcon type="primary" />
             </div>
             <h4 className={`${styles.name} text text_type_main-default`}>
               {item.name}
             </h4>
-          </div>
+          </li>
         ))}
     </ul>
   );
@@ -36,7 +34,7 @@ const BurgerIngredients = () => {
   return (
     <section className={styles.ingredients}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
-      <div style={{ display: "flex" }}>
+      <div className={`${styles.tab__bar} mb-10`}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -47,9 +45,9 @@ const BurgerIngredients = () => {
           Начинки
         </Tab>
       </div>
-      <ul className={styles.list_types}>
+      <ul className={`${styles.list_types} pl-2`}>
         <li>
-          <h3 className="text text_type_main-medium mt-10 mb-6">Булки</h3>
+          <h3 className="text text_type_main-medium mb-6">Булки</h3>
           {getItems(data, "bun")}
         </li>
         <li>
