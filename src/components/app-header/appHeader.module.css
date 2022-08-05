@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  align-items: center;
+  box-sizing: border-box;
+  grid-area: header;
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.list__item {
+  display: flex;
+  column-gap: 8px;
+}
+.list__item:first-child {
+  padding-left: 0;
+}
+
+.profile {
+  composes: list__item;
+  justify-self: end;
+}
