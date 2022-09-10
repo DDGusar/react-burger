@@ -1,0 +1,12 @@
+.modal {
+  margin: auto;
+  width: 720px;
+  min-height: 720px;
+  box-sizing: border-box;
+
+  border-radius: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+}

@@ -6,28 +6,8 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data } from "../../utils/data.js";
 
-const getTopping = (data) => {
-  return (
-    <ul className={`${styles.list_toppings} pr-3`}>
-      {data
-        .filter((item) => item.type !== "bun")
-        .map((item) => (
-          <li className={`${styles.item__topping} pb-4`} key={item._id}>
-            <DragIcon />
-            <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-            />
-          </li>
-        ))}
-    </ul>
-  );
-};
-
-const BurgerConstructor = () => {
+const BurgerConstructor = ({ data }) => {
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className={styles.ingredients}>
@@ -35,19 +15,34 @@ const BurgerConstructor = () => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={data[0].image}
+            // text={`${data[0].name} (верх)`}
+            // price={data[0].price}
+            // thumbnail={data[0].image}
           />
         </div>
-        {getTopping(data)}
+
+        <ul className={`${styles.list_toppings} pr-3`}>
+          {data
+            .filter((item) => item.type !== "bun")
+            .map((item) => (
+              <li className={`${styles.item__topping} pb-4`} key={item._id}>
+                <DragIcon />
+                <ConstructorElement
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            ))}
+        </ul>
+
         <div className="pl-8">
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={data[0].image}
+            // text={`${data[0].name} (низ)`}
+            // price={data[0].price}
+            // thumbnail={data[0].image}
           />
         </div>
       </div>
