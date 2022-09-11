@@ -59,19 +59,19 @@ const App = () => {
   return (
     <div className={styles.app__layout}>
       <AppHeader />
-      <main>
-        {status.hasError && <p>Ошибка получения данных с сервера</p>}
-        {ingredients.length && !status.hasError && (
-          <BurgerIngredients
-            data={ingredients}
-            openModalIngredient={openModalIngredient}
-          />
-        )}
-        <BurgerConstructor data={ingredients} />
-      </main>
-      {openOrderDetails && <Modal handleClose={closeModals} header=""></Modal>}
+      {/* <main> */}
+      {status.hasError && <p>Ошибка получения данных с сервера</p>}
+      {ingredients.length && !status.hasError && (
+        <BurgerIngredients
+          data={ingredients}
+          openModalIngredient={openModalIngredient}
+        />
+      )}
+      <BurgerConstructor data={ingredients} />
+      {/* </main> */}
+      {openOrderDetails && <Modal onClose={closeModals} header=""></Modal>}
       {openIngredientDetails && (
-        <Modal title="Детали ингредиента" handleClose={closeModals}>
+        <Modal title="Детали ингредиента" onClose={closeModals}>
           {/* <IngredientDetails ingredient={infoIngredient} /> */}
         </Modal>
       )}
