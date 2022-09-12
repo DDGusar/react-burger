@@ -7,7 +7,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, openModalOrder }) => {
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className={styles.ingredients}>
@@ -58,7 +58,7 @@ const BurgerConstructor = ({ data }) => {
           <CurrencyIcon />
         </div>
 
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={openModalOrder}>
           Оформить заказ
         </Button>
       </div>

@@ -3,6 +3,7 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
+import { OrderDetails } from "../order-details/OrderDetails";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
 import { ingredientsLink } from "../../utils/constants";
 import { Modal } from "../modal/modal";
@@ -17,7 +18,7 @@ const App = () => {
   });
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
 
-  const [openIngredientDetails, setShowIngredientDetails] = useState(false);
+  const [openIngredientDetails, setOpenIngredientDetails] = useState(false);
 
   const apiRequest = async () => {
     const res = await fetch(`${ingredientsLink.url}`);
@@ -29,12 +30,16 @@ const App = () => {
 
   const closeModals = () => {
     setOpenOrderDetails(false);
-    setShowIngredientDetails(false);
+    setOpenIngredientDetails(false);
   };
 
   const openModalIngredient = (ingredient) => {
     setIngredientModal(ingredient);
-    setShowIngredientDetails(true);
+    setOpenIngredientDetails(true);
+  };
+
+  const openModalOrder = () => {
+    setOpenOrderDetails(true);
   };
 
   const getProductData = () => {
@@ -69,12 +74,16 @@ const App = () => {
           openModalIngredient={openModalIngredient}
         />
       )}
-      <BurgerConstructor data={ingredients} />
+      <BurgerConstructor data={ingredients} openModalOrder={openModalOrder} />
       {/* </main> */}
-      {openOrderDetails && <Modal onClose={closeModals} header=""></Modal>}
       {openIngredientDetails && (
         <Modal title="Детали ингредиента" onClose={closeModals}>
           <IngredientDetails ingredient={ingredientModal} />
+        </Modal>
+      )}
+      {openOrderDetails && (
+        <Modal onClose={closeModals} header="">
+          <OrderDetails />
         </Modal>
       )}
     </div>
