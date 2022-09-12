@@ -5,7 +5,7 @@ import { modalRoot } from "../../utils/constants";
 import { ModalOverlay } from "../modal-overlay/modalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const Modal = ({ header, onClose: onClose, children }) => {
+export const Modal = ({ header, onClose, children }) => {
   const onEsc = (e) => {
     e.key === "Escape" && onClose();
   };
@@ -18,10 +18,12 @@ export const Modal = ({ header, onClose: onClose, children }) => {
   return createPortal(
     <>
       <div className={`${styles.modal}`}>
-        <h1 className="text text_type_main-large">{header}</h1>
-        <button className={`${styles.buttonClose}`}>
-          <CloseIcon type="primary" />
-        </button>
+        <div className={`${styles.header}`}>
+          <h1 className="text text_type_main-large">{header}</h1>
+          <button className={`${styles.buttonClose}`}>
+            <CloseIcon type="primary" />
+          </button>
+        </div>
         {children}
       </div>
 

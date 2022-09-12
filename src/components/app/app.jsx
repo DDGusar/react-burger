@@ -3,11 +3,13 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
+import { IngredientDetails } from "../ingredient-details/IngredientDetails";
 import { ingredientsLink } from "../../utils/constants";
 import { Modal } from "../modal/modal";
 
 const App = () => {
   const [ingredients, setIngredients] = useState([]);
+  const [ingredientModal, setIngredientModal] = useState({});
   const [status, setDownloadStatus] = useState({
     isLoading: true,
     hasError: false,
@@ -30,8 +32,8 @@ const App = () => {
     setShowIngredientDetails(false);
   };
 
-  const openModalIngredient = (/*ingredient*/) => {
-    // setInfoIngredient(ingredient);
+  const openModalIngredient = (ingredient) => {
+    setIngredientModal(ingredient);
     setShowIngredientDetails(true);
   };
 
@@ -72,7 +74,7 @@ const App = () => {
       {openOrderDetails && <Modal onClose={closeModals} header=""></Modal>}
       {openIngredientDetails && (
         <Modal title="Детали ингредиента" onClose={closeModals}>
-          {/* <IngredientDetails ingredient={infoIngredient} /> */}
+          <IngredientDetails ingredient={ingredientModal} />
         </Modal>
       )}
     </div>

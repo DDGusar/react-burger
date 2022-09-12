@@ -33,7 +33,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
                   className={styles.card}
                   key={item._id}
                   onClick={() => {
-                    openModalIngredient();
+                    openModalIngredient(item);
                   }}
                 >
                   <Counter count={1} size="default" />
@@ -62,7 +62,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
                   className={styles.card}
                   key={item._id}
                   onClick={() => {
-                    openModalIngredient();
+                    openModalIngredient(item);
                   }}
                 >
                   <Counter count={1} size="default" />
@@ -90,7 +90,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
                   className={styles.card}
                   key={item._id}
                   onClick={() => {
-                    openModalIngredient();
+                    openModalIngredient(item);
                   }}
                 >
                   <Counter count={1} size="default" />
