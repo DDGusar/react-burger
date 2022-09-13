@@ -66,16 +66,21 @@ const App = () => {
   return (
     <div className={styles.app__layout}>
       <AppHeader />
-      {/* <main> */}
-      {status.hasError && <p>Ошибка получения данных с сервера</p>}
-      {ingredients.length && !status.hasError && (
-        <BurgerIngredients
-          data={ingredients}
-          openModalIngredient={openModalIngredient}
-        />
-      )}
-      <BurgerConstructor data={ingredients} openModalOrder={openModalOrder} />
-      {/* </main> */}
+      <main className={styles.main}>
+        {status.hasError && <p>Ошибка получения данных с сервера</p>}
+        {ingredients.length && !status.hasError && (
+          <BurgerIngredients
+            data={ingredients}
+            openModalIngredient={openModalIngredient}
+          />
+        )}
+        {ingredients.length && !status.hasError && (
+          <BurgerConstructor
+            data={ingredients}
+            openModalOrder={openModalOrder}
+          />
+        )}
+      </main>
       {openIngredientDetails && (
         <Modal title="Детали ингредиента" onClose={closeModals}>
           <IngredientDetails ingredient={ingredientModal} />

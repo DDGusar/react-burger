@@ -20,14 +20,18 @@ export const Modal = ({ header, onClose, children }) => {
       <div className={`${styles.modal}`}>
         <div className={`${styles.header}`}>
           <h1 className="text text_type_main-large">{header}</h1>
-          <button className={`${styles.buttonClose}`}>
+          <button
+            className={styles.buttonClose}
+            type="button"
+            onClick={onClose}
+          >
             <CloseIcon type="primary" />
           </button>
         </div>
         {children}
       </div>
 
-      <ModalOverlay oneClick={onClose} />
+      <ModalOverlay onClick={onClose} />
     </>,
     modalRoot
   );
