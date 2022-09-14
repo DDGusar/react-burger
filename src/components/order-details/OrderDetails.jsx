@@ -1,11 +1,12 @@
 import styles from "./orderDetails.module.css";
 import done from "../../images/done.jpg";
+import { orderNumber } from "../../utils/data";
 export const OrderDetails = () => {
   return (
     <div className={`${styles.container} pb-30 pt-4`}>
       <ul className={`${styles.list_id}`}>
         <li className={`${styles.item} ${styles.order} pb-8`}>
-          <h2 className="text text_type_digits-large">034536</h2>
+          <h2 className="text text_type_digits-large">{orderNumber}</h2>
         </li>
         <li className={`${styles.item}`}>
           <p className={`${styles.id_text} text text_type_main-medium`}>
