@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./burgerConstructor.module.css";
+import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 import {
   CurrencyIcon,
   Button,
@@ -15,9 +17,9 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            // text={`${data[0].name} (верх)`}
-            // price={data[0].price}
-            // thumbnail={data[0].image}
+            text={`${data[0].name} (верх)`}
+            price={data[0].price}
+            thumbnail={data[0].image}
           />
         </div>
 
@@ -40,9 +42,9 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            // text={`${data[0].name} (низ)`}
-            // price={data[0].price}
-            // thumbnail={data[0].image}
+            text={`${data[0].name} (низ)`}
+            price={data[0].price}
+            thumbnail={data[0].image}
           />
         </div>
       </div>
@@ -65,5 +67,8 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
     </section>
   );
 };
-
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  openModalOrder: PropTypes.func.isRequired,
+};
 export default BurgerConstructor;

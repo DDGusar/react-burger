@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-export const ingredientType = Proptypes.shape({
+export const ingredientType = PropTypes.shape({
   _id: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.oneOf(["bun", "main", "sauce"]),

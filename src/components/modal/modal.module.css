@@ -1,6 +1,6 @@
 .modal {
   margin: auto;
-  max-width: 720px;
+  min-width: 720px;
   min-height: 250px;
   box-sizing: border-box;
   background-color: #1c1c21;
@@ -11,14 +11,14 @@
 
   border-radius: 40px;
   position: fixed;
-  top: 25%;
-  left: 25%;
+  top: 20%;
+  left: 32%;
   z-index: 1;
   display: flex;
 }
 
 .header {
-  min-width: calc(100% - 80px);
+  width: 100%;
   min-height: 64px;
   display: flex;
   flex-direction: row;

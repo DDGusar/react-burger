@@ -82,7 +82,7 @@ const App = () => {
         )}
       </main>
       {openIngredientDetails && (
-        <Modal title="Детали ингредиента" onClose={closeModals}>
+        <Modal header="Детали ингредиента" onClose={closeModals}>
           <IngredientDetails ingredient={ingredientModal} />
         </Modal>
       )}

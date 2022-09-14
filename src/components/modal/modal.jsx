@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import styles from "./modal.module.css";
 import { modalRoot } from "../../utils/constants";
@@ -17,7 +18,7 @@ export const Modal = ({ header, onClose, children }) => {
   }, []);
   return createPortal(
     <>
-      <div className={`${styles.modal}`}>
+      <div className={`${styles.modal} pl-10 pt-10 pr-10`}>
         <div className={`${styles.header}`}>
           <h1 className="text text_type_main-large">{header}</h1>
           <button
@@ -35,4 +36,9 @@ export const Modal = ({ header, onClose, children }) => {
     </>,
     modalRoot
   );
+};
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  header: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
 };

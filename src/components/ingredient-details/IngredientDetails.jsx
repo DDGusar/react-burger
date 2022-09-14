@@ -1,7 +1,8 @@
 import styles from "./ingredientDetails.module.css";
+import { ingredientType } from "../../utils/types";
 export const IngredientDetails = ({ ingredient }) => {
   return (
-    <div className={`${styles.container} pb-15`}>
+    <div className={`${styles.container} pb-15 ml-15 mr-15`}>
       <img
         className={`${styles.image} mb-4`}
         src={ingredient.image}
@@ -14,22 +15,33 @@ export const IngredientDetails = ({ ingredient }) => {
         className={`${styles.list_propeties} text text_type_main-default text_color_inactive`}
       >
         <li className={`${styles.item} `}>
-          <p className={`${styles.property}`}>Калории,ккал</p>
-          <p className={`${styles.value}`}>{ingredient.calories}</p>
+          <p className={`${styles.property} pb-2`}>Калории,ккал</p>
+          <p className={`${styles.value} text text_type_digits-default`}>
+            {ingredient.calories}
+          </p>
         </li>
         <li className={`${styles.item} `}>
-          <p className={`${styles.property}`}>Белки, г</p>
-          <p className={`${styles.value}`}>{ingredient.proteins}</p>
+          <p className={`${styles.property} pb-2`}>Белки, г</p>
+          <p className={`${styles.value} text text_type_digits-default`}>
+            {ingredient.proteins}
+          </p>
         </li>
         <li className={`${styles.item} `}>
-          <p className={`${styles.property}`}>Жиры, г</p>
-          <p className={`${styles.value}`}>{ingredient.fat}</p>
+          <p className={`${styles.property} pb-2`}>Жиры, г</p>
+          <p className={`${styles.value} text text_type_digits-default`}>
+            {ingredient.fat}
+          </p>
         </li>
         <li className={`${styles.item}`}>
-          <p className={`${styles.property}`}>Углеводы, г</p>
-          <p className={`${styles.value}`}>{ingredient.carbohydrates}</p>
+          <p className={`${styles.property} pb-2`}>Углеводы, г</p>
+          <p className={`${styles.value} text text_type_digits-default`}>
+            {ingredient.carbohydrates}
+          </p>
         </li>
       </ul>
     </div>
   );
+};
+IngredientDetails.propTypes = {
+  ingredient: ingredientType.isRequired,
 };

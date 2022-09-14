@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./burgerIngredients.module.css";
+import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 import {
   Tab,
   CurrencyIcon,
@@ -112,5 +114,8 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
     </section>
   );
 };
-
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  openModalIngredient: PropTypes.func.isRequired,
+};
 export default BurgerIngredients;
