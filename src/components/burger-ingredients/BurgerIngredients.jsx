@@ -1,35 +1,14 @@
 import React from "react";
 import styles from "./burgerIngredients.module.css";
+import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
 import {
   Tab,
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data } from "../../utils/data.js";
 
-const getItems = (data, type) => {
-  return (
-    <ul className={styles.list_ingredients}>
-      {data
-        .filter((item) => item.type === type)
-        .map((item) => (
-          <li className={styles.card} key={item._id}>
-            <Counter count={1} size="default" />
-            <img src={item.image} />
-            <div className={`${styles.price} mt-2 mb-2`}>
-              <p className="text text_type_digits-default mr-2">{item.price}</p>
-              <CurrencyIcon type="primary" />
-            </div>
-            <h4 className={`${styles.name} text text_type_main-default`}>
-              {item.name}
-            </h4>
-          </li>
-        ))}
-    </ul>
-  );
-};
-
-const BurgerIngredients = () => {
+const BurgerIngredients = ({ data, openModalIngredient }) => {
   const [current, setCurrent] = React.useState("bun");
   return (
     <section className={styles.ingredients}>
@@ -48,19 +27,95 @@ const BurgerIngredients = () => {
       <ul className={`${styles.list_types} pl-2`}>
         <li>
           <h3 className="text text_type_main-medium mb-6">Булки</h3>
-          {getItems(data, "bun")}
+          <ul className={styles.list_ingredients}>
+            {data
+              .filter((item) => item.type === "bun")
+              .map((item) => (
+                <li
+                  className={styles.card}
+                  key={item._id}
+                  onClick={() => {
+                    openModalIngredient(item);
+                  }}
+                >
+                  <Counter count={1} size="default" />
+                  <img src={item.image} alt={item.name} />
+                  <div className={`${styles.price} mt-2 mb-2`}>
+                    <p className="text text_type_digits-default mr-2">
+                      {item.price}
+                    </p>
+                    <CurrencyIcon type="primary" />
+                  </div>
+                  <h4 className={`${styles.name} text text_type_main-default`}>
+                    {item.name}
+                  </h4>
+                </li>
+              ))}
+          </ul>
         </li>
         <li>
           <h3 className="text text_type_main-medium mt-10 mb-6">Соусы</h3>
-          {getItems(data, "sauce")}
+
+          <ul className={styles.list_ingredients}>
+            {data
+              .filter((item) => item.type === "sauce")
+              .map((item) => (
+                <li
+                  className={styles.card}
+                  key={item._id}
+                  onClick={() => {
+                    openModalIngredient(item);
+                  }}
+                >
+                  <Counter count={1} size="default" />
+                  <img src={item.image} alt={item.name} />
+                  <div className={`${styles.price} mt-2 mb-2`}>
+                    <p className="text text_type_digits-default mr-2">
+                      {item.price}
+                    </p>
+                    <CurrencyIcon type="primary" />
+                  </div>
+                  <h4 className={`${styles.name} text text_type_main-default`}>
+                    {item.name}
+                  </h4>
+                </li>
+              ))}
+          </ul>
         </li>
         <li>
           <h3 className="text text_type_main-medium mt-10 mb-6">Начинки</h3>
-          {getItems(data, "main")}
+          <ul className={styles.list_ingredients}>
+            {data
+              .filter((item) => item.type === "main")
+              .map((item) => (
+                <li
+                  className={styles.card}
+                  key={item._id}
+                  onClick={() => {
+                    openModalIngredient(item);
+                  }}
+                >
+                  <Counter count={1} size="default" />
+                  <img src={item.image} alt={item.name} />
+                  <div className={`${styles.price} mt-2 mb-2`}>
+                    <p className="text text_type_digits-default mr-2">
+                      {item.price}
+                    </p>
+                    <CurrencyIcon type="primary" />
+                  </div>
+                  <h4 className={`${styles.name} text text_type_main-default`}>
+                    {item.name}
+                  </h4>
+                </li>
+              ))}
+          </ul>
         </li>
       </ul>
     </section>
   );
 };
-
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  openModalIngredient: PropTypes.func.isRequired,
+};
 export default BurgerIngredients;

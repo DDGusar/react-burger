@@ -1,0 +1,43 @@
+.modal {
+  margin: auto;
+  min-width: 720px;
+  min-height: 250px;
+  box-sizing: border-box;
+  background-color: #1c1c21;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+}
+
+.header {
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonClose {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+
+  opacity: 1;
+  padding: 0;
+  background-color: #1c1c21;
+}
+
+.buttonClose:hover {
+  opacity: 0.6;
+}
