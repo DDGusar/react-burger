@@ -32,6 +32,6 @@ export const OrderDetails = ({ orderNumber }) => {
     </div>
   );
 };
-// OrderDetails.propTypes = {
-//   order: PropTypes.number.isRequired,
-// };
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
+};

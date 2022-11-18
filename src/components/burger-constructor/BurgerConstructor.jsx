@@ -15,12 +15,10 @@ const BurgerConstructor = ({ openModalOrder }) => {
   const { ingredients } = useContext(DataContext);
   const { bun, setBun } = useContext(BunContext);
   const { priceState, priceDispatcher } = useContext(PriceContext);
-  // useEffect(() => {,[]});
-  const buns = useMemo(
-    () => ingredients.filter((item) => item.type === "bun"),
-    [ingredients]
-  );
-  setBun(buns[0]);
+  useEffect(() => {
+    const buns = ingredients.filter((item) => item.type === "bun");
+    setBun(buns[0]);
+  }, [ingredients, setBun]);
 
   const priceCount = useCallback(() => {
     if (bun.price) {
@@ -28,7 +26,6 @@ const BurgerConstructor = ({ openModalOrder }) => {
         const totalPrice = acc + (topping.type !== "bun" ? topping.price : 0);
         return totalPrice;
       }, 0);
-      console.log(price);
       priceDispatcher({ type: "count", payload: price + bun.price * 2 });
     }
   }, [ingredients, bun.price, priceDispatcher]);
