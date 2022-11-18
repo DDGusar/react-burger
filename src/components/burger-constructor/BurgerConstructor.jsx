@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useMemo, useCallback } from "react";
 import styles from "./burgerConstructor.module.css";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { DataContext } from "../../services/dataContext.js";
+import { BunContext } from "../../services/bunContext.js";
+import { PriceContext } from "../../services/priceContext";
 import {
   CurrencyIcon,
   Button,
@@ -9,7 +11,30 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructor = ({ data, openModalOrder }) => {
+const BurgerConstructor = ({ openModalOrder }) => {
+  const { ingredients } = useContext(DataContext);
+  const { bun, setBun } = useContext(BunContext);
+  const { priceState, priceDispatcher } = useContext(PriceContext);
+  // useEffect(() => {,[]});
+  const buns = useMemo(
+    () => ingredients.filter((item) => item.type === "bun"),
+    [ingredients]
+  );
+  setBun(buns[0]);
+
+  const priceCount = useCallback(() => {
+    if (bun.price) {
+      const price = ingredients.reduce((acc, topping) => {
+        const totalPrice = acc + (topping.type !== "bun" ? topping.price : 0);
+        return totalPrice;
+      }, 0);
+      console.log(price);
+      priceDispatcher({ type: "count", payload: price + bun.price * 2 });
+    }
+  }, [ingredients, bun.price, priceDispatcher]);
+  useEffect(() => {
+    priceCount();
+  }, [bun.price, ingredients, priceCount, priceState.price]);
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className={styles.ingredients}>
@@ -17,14 +42,14 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${data[0].name} (верх)`}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
 
         <ul className={`${styles.list_toppings} pr-3`}>
-          {data
+          {ingredients
             .filter((item) => item.type !== "bun")
             .map((item) => (
               <li className={`${styles.item__topping} pb-4`} key={item._id}>
@@ -42,21 +67,18 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${data[0].name} (низ)`}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>
       <div className={`${styles.order} pt-10 pr-3`}>
         <div className={`${styles.total__price} pr-10`}>
-          <p className={` text text_type_digits-medium`}>
-            {data.reduce((acc, topping) => {
-              const totalPrice =
-                acc + (topping.type !== "bun" ? topping.price : 0);
-              return totalPrice;
-            }, 0)}
-          </p>
+          <p
+            className={` text text_type_digits-medium`}
+          >{`${priceState.price}`}</p>
+
           <CurrencyIcon />
         </div>
 
@@ -68,7 +90,6 @@ const BurgerConstructor = ({ data, openModalOrder }) => {
   );
 };
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   openModalOrder: PropTypes.func.isRequired,
 };
 export default BurgerConstructor;

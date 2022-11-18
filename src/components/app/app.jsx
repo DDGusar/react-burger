@@ -1,32 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer, useMemo } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import { OrderDetails } from "../order-details/OrderDetails";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
-import { ingredientsLink } from "../../utils/constants";
+import { dataRequest, orderRequest } from "../../utils/constants";
 import { Modal } from "../modal/modal";
+import { DataContext } from "../../services/dataContext";
+import { BunContext } from "../../services/bunContext";
+import { PriceContext } from "../../services/priceContext";
+
+const priceInit = { price: null };
+function reducer(priceState, action) {
+  switch (action.type) {
+    case "count":
+      return { price: action.payload };
+    case "reset":
+      return priceInit;
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
 
 const App = () => {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientModal, setIngredientModal] = useState({});
+
+  const [bun, setBun] = useState({});
+  const [priceState, priceDispatcher] = useReducer(reducer, priceInit);
   const [status, setDownloadStatus] = useState({
     isLoading: true,
     hasError: false,
     error: "",
   });
+  const [orderNumber, setOrderNumber] = useState([]);
+  const [orderError, setOrderError] = useState([]);
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
 
   const [openIngredientDetails, setOpenIngredientDetails] = useState(false);
-
-  const apiRequest = async () => {
-    const res = await fetch(`${ingredientsLink.url}`);
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status} - ${res.statusText}`);
-  };
 
   const closeModals = () => {
     setOpenOrderDetails(false);
@@ -39,11 +51,12 @@ const App = () => {
   };
 
   const openModalOrder = () => {
+    setOrderData(orderData);
     setOpenOrderDetails(true);
   };
 
   const getProductData = () => {
-    apiRequest()
+    dataRequest()
       .then((res) => {
         setIngredients(res.data);
         setDownloadStatus({
@@ -60,26 +73,46 @@ const App = () => {
         });
       });
   };
+
+  const orderData = useMemo(
+    () => ingredients.map((ingredient) => ingredient._id),
+    [ingredients]
+  );
+
+  const setOrderData = (orderData) => {
+    orderRequest(orderData)
+      .then((res) => {
+        setOrderNumber(res.order.number);
+      })
+      .catch((err) => {
+        setOrderError(err);
+      });
+  };
+
   useEffect(() => {
     getProductData();
   }, []);
+
   return (
     <div className={styles.app__layout}>
       <AppHeader />
       <main className={styles.main}>
         {status.hasError && <p>Ошибка получения данных с сервера</p>}
         {ingredients.length && !status.hasError && (
-          <BurgerIngredients
-            data={ingredients}
-            openModalIngredient={openModalIngredient}
-          />
+          <DataContext.Provider value={{ ingredients }}>
+            <BunContext.Provider value={{ bun, setBun }}>
+              <PriceContext.Provider value={{ priceState, priceDispatcher }}>
+                <BurgerIngredients
+                  openModalIngredient={openModalIngredient}
+                ></BurgerIngredients>
+                <BurgerConstructor
+                  openModalOrder={openModalOrder}
+                ></BurgerConstructor>
+              </PriceContext.Provider>
+            </BunContext.Provider>
+          </DataContext.Provider>
         )}
-        {ingredients.length && !status.hasError && (
-          <BurgerConstructor
-            data={ingredients}
-            openModalOrder={openModalOrder}
-          />
-        )}
+        {status.hasError && <p>Ошибка получения данных с сервера</p>}
       </main>
       {openIngredientDetails && (
         <Modal header="Детали ингредиента" onClose={closeModals}>
@@ -88,7 +121,7 @@ const App = () => {
       )}
       {openOrderDetails && (
         <Modal onClose={closeModals} header="">
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
     </div>

@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { DataContext } from "../../services/dataContext";
 import {
   Tab,
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerIngredients = ({ data, openModalIngredient }) => {
+const BurgerIngredients = ({ openModalIngredient }) => {
+  const { ingredients } = useContext(DataContext);
   const [current, setCurrent] = React.useState("bun");
   return (
     <section className={styles.ingredients}>
@@ -28,7 +29,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
         <li>
           <h3 className="text text_type_main-medium mb-6">Булки</h3>
           <ul className={styles.list_ingredients}>
-            {data
+            {ingredients
               .filter((item) => item.type === "bun")
               .map((item) => (
                 <li
@@ -57,7 +58,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
           <h3 className="text text_type_main-medium mt-10 mb-6">Соусы</h3>
 
           <ul className={styles.list_ingredients}>
-            {data
+            {ingredients
               .filter((item) => item.type === "sauce")
               .map((item) => (
                 <li
@@ -85,7 +86,7 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
         <li>
           <h3 className="text text_type_main-medium mt-10 mb-6">Начинки</h3>
           <ul className={styles.list_ingredients}>
-            {data
+            {ingredients
               .filter((item) => item.type === "main")
               .map((item) => (
                 <li
@@ -115,7 +116,6 @@ const BurgerIngredients = ({ data, openModalIngredient }) => {
   );
 };
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   openModalIngredient: PropTypes.func.isRequired,
 };
 export default BurgerIngredients;
