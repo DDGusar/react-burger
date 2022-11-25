@@ -87,7 +87,12 @@ const BurgerConstructor = ({ openModalOrder }) => {
           <CurrencyIcon />
         </div>
 
-        <Button type="primary" size="large" onClick={openModalOrder}>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={openModalOrder}
+        >
           Оформить заказ
         </Button>
       </div>
