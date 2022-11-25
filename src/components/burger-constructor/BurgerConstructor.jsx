@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useCallback, useMemo } from "react";
+import React, { useContext, useMemo, useReducer } from "react";
 import styles from "./burgerConstructor.module.css";
 import PropTypes from "prop-types";
 import { DataContext } from "../../services/dataContext.js";
 import { BunContext } from "../../services/bunContext.js";
-import { PriceContext } from "../../services/priceContext";
 import {
   CurrencyIcon,
   Button,
@@ -11,20 +10,27 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+const priceInit = { price: null };
+function reducer(priceState, action) {
+  switch (action.type) {
+    case "count":
+      return { price: action.payload };
+    case "reset":
+      return priceInit;
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
 const BurgerConstructor = ({ openModalOrder }) => {
   const { ingredients } = useContext(DataContext);
   const { bun } = useContext(BunContext);
-  const { priceState, priceDispatcher } = useContext(PriceContext);
+  const [priceState, priceDispatcher] = useReducer(reducer, priceInit);
 
   const otherIngredients = useMemo(
     () => ingredients.filter((item) => item.type !== "bun"),
     [ingredients]
   );
-
-  // useEffect(() => {
-  //   const buns = ingredients.filter((item) => item.type === "bun");
-  //   setBun(buns[0]);
-  // }, [ingredients, setBun]);
 
   useMemo(() => {
     if (bun.price) {
@@ -35,13 +41,6 @@ const BurgerConstructor = ({ openModalOrder }) => {
       priceDispatcher({ type: "count", payload: price + bun.price * 2 });
     }
   }, [ingredients, bun.price, priceDispatcher]);
-
-  // useMemo(() => {
-  //   const currentBun = ingredients.find((item) => {
-  //     return item.type === "bun";
-  //   });
-  //   setBun(currentBun);
-  // }, [ingredients, setBun]);
 
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>

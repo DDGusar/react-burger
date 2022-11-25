@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
@@ -9,26 +9,12 @@ import { dataRequest, orderRequest } from "../../utils/constants";
 import { Modal } from "../modal/modal";
 import { DataContext } from "../../services/dataContext";
 import { BunContext } from "../../services/bunContext";
-import { PriceContext } from "../../services/priceContext";
-
-const priceInit = { price: null };
-function reducer(priceState, action) {
-  switch (action.type) {
-    case "count":
-      return { price: action.payload };
-    case "reset":
-      return priceInit;
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
 
 const App = () => {
   const [ingredients, setIngredients] = useState([]);
   const [ingredientModal, setIngredientModal] = useState(null);
 
-  const [bun, setBun] = useState({});
-  const [priceState, priceDispatcher] = useReducer(reducer, priceInit);
+  const [bun, setBun] = useState(null);
   const [status, setDownloadStatus] = useState({
     isLoading: true,
     hasError: false,
@@ -80,13 +66,6 @@ const App = () => {
         });
       });
   };
-  // useMemo(() => {
-  //   const currentBun = ingredients.find((item) => {
-  //     return item.type === "bun";
-  //   });
-  //   setBun(currentBun);
-  // }, [ingredients, setBun]);
-
   const otherIngredients = useMemo(
     () => ingredients.filter((item) => item.type !== "bun"),
     [ingredients]
@@ -118,14 +97,12 @@ const App = () => {
         {ingredients.length && !status.hasError && (
           <DataContext.Provider value={{ ingredients }}>
             <BunContext.Provider value={{ bun, setBun }}>
-              <PriceContext.Provider value={{ priceState, priceDispatcher }}>
-                <BurgerIngredients
-                  openModalIngredient={openModalIngredient}
-                ></BurgerIngredients>
-                <BurgerConstructor
-                  openModalOrder={openModalOrder}
-                ></BurgerConstructor>
-              </PriceContext.Provider>
+              <BurgerIngredients
+                openModalIngredient={openModalIngredient}
+              ></BurgerIngredients>
+              <BurgerConstructor
+                openModalOrder={openModalOrder}
+              ></BurgerConstructor>
             </BunContext.Provider>
           </DataContext.Provider>
         )}
