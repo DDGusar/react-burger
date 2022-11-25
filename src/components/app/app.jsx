@@ -25,7 +25,7 @@ function reducer(priceState, action) {
 
 const App = () => {
   const [ingredients, setIngredients] = useState([]);
-  const [ingredientModal, setIngredientModal] = useState({});
+  const [ingredientModal, setIngredientModal] = useState(null);
 
   const [bun, setBun] = useState({});
   const [priceState, priceDispatcher] = useReducer(reducer, priceInit);
@@ -34,8 +34,8 @@ const App = () => {
     hasError: false,
     error: "",
   });
-  const [orderNumber, setOrderNumber] = useState([]);
-  const [orderError, setOrderError] = useState([]);
+  const [orderNumber, setOrderNumber] = useState(0);
+  const [orderError, setOrderError] = useState(null);
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
 
   const [openIngredientDetails, setOpenIngredientDetails] = useState(false);
@@ -51,9 +51,16 @@ const App = () => {
   };
 
   const openModalOrder = () => {
-    setOrderData(orderData);
+    setOrderData();
     setOpenOrderDetails(true);
   };
+
+  useMemo(() => {
+    const currentBun = ingredients.find((item) => {
+      return item.type === "bun";
+    });
+    setBun(currentBun);
+  }, [ingredients, setBun]);
 
   const getProductData = () => {
     dataRequest()
@@ -73,14 +80,24 @@ const App = () => {
         });
       });
   };
+  // useMemo(() => {
+  //   const currentBun = ingredients.find((item) => {
+  //     return item.type === "bun";
+  //   });
+  //   setBun(currentBun);
+  // }, [ingredients, setBun]);
 
-  const orderData = useMemo(
-    () => ingredients.map((ingredient) => ingredient._id),
+  const otherIngredients = useMemo(
+    () => ingredients.filter((item) => item.type !== "bun"),
     [ingredients]
   );
 
-  const setOrderData = (orderData) => {
-    orderRequest(orderData)
+  const setOrderData = () => {
+    orderRequest([
+      bun._id,
+      ...otherIngredients.map((item) => item._id),
+      bun._id,
+    ])
       .then((res) => {
         setOrderNumber(res.order.number);
       })

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useCallback } from "react";
+import React, { useContext, useEffect, useCallback, useMemo } from "react";
 import styles from "./burgerConstructor.module.css";
 import PropTypes from "prop-types";
 import { DataContext } from "../../services/dataContext.js";
@@ -13,14 +13,20 @@ import {
 
 const BurgerConstructor = ({ openModalOrder }) => {
   const { ingredients } = useContext(DataContext);
-  const { bun, setBun } = useContext(BunContext);
+  const { bun } = useContext(BunContext);
   const { priceState, priceDispatcher } = useContext(PriceContext);
-  useEffect(() => {
-    const buns = ingredients.filter((item) => item.type === "bun");
-    setBun(buns[0]);
-  }, [ingredients, setBun]);
 
-  const priceCount = useCallback(() => {
+  const otherIngredients = useMemo(
+    () => ingredients.filter((item) => item.type !== "bun"),
+    [ingredients]
+  );
+
+  // useEffect(() => {
+  //   const buns = ingredients.filter((item) => item.type === "bun");
+  //   setBun(buns[0]);
+  // }, [ingredients, setBun]);
+
+  useMemo(() => {
     if (bun.price) {
       const price = ingredients.reduce((acc, topping) => {
         const totalPrice = acc + (topping.type !== "bun" ? topping.price : 0);
@@ -29,9 +35,14 @@ const BurgerConstructor = ({ openModalOrder }) => {
       priceDispatcher({ type: "count", payload: price + bun.price * 2 });
     }
   }, [ingredients, bun.price, priceDispatcher]);
-  useEffect(() => {
-    priceCount();
-  }, [bun.price, ingredients, priceCount, priceState.price]);
+
+  // useMemo(() => {
+  //   const currentBun = ingredients.find((item) => {
+  //     return item.type === "bun";
+  //   });
+  //   setBun(currentBun);
+  // }, [ingredients, setBun]);
+
   return (
     <section className={`${styles.constructor} pt-25 pl-4`}>
       <div className={styles.ingredients}>
@@ -46,18 +57,16 @@ const BurgerConstructor = ({ openModalOrder }) => {
         </div>
 
         <ul className={`${styles.list_toppings} pr-3`}>
-          {ingredients
-            .filter((item) => item.type !== "bun")
-            .map((item) => (
-              <li className={`${styles.item__topping} pb-4`} key={item._id}>
-                <DragIcon />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </li>
-            ))}
+          {otherIngredients.map((item) => (
+            <li className={`${styles.item__topping} pb-4`} key={item._id}>
+              <DragIcon />
+              <ConstructorElement
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </li>
+          ))}
         </ul>
 
         <div className="pl-8">
