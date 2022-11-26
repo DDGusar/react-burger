@@ -12,7 +12,7 @@
 .name {
   text-align: center;
 }
-.list_propeties {
+.list_properties {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

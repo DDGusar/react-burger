@@ -12,7 +12,7 @@ export const IngredientDetails = ({ ingredient }) => {
         {ingredient.name}
       </h3>
       <ul
-        className={`${styles.list_propeties} text text_type_main-default text_color_inactive`}
+        className={`${styles.list_properties} text text_type_main-default text_color_inactive`}
       >
         <li className={`${styles.item} `}>
           <p className={`${styles.property} pb-2`}>Калории,ккал</p>
