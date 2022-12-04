@@ -1,16 +1,40 @@
-import React, { useContext, useMemo, useState, useRef } from "react";
+import React, { useMemo, useEffect } from "react";
 import styles from "./burgerIngredients.module.css";
 import PropTypes from "prop-types";
-import { DataContext } from "../../services/dataContext";
 import {
   Tab,
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { SET_CURRENT_TAB } from "../../services/actions/ingredientsList";
 
 const BurgerIngredients = ({ openModalIngredient }) => {
-  const { ingredients } = useContext(DataContext);
-  const [current, setCurrent] = useState("bun");
+  const ingredients = useSelector((store) => store.ingredientsList.ingredients);
+  const currentTab = useSelector((store) => store.ingredientsList.currentTab);
+
+  const dispatch = useDispatch();
+  const [bun, inViewBun] = useInView({
+    threshold: 0.2,
+  });
+  const [sauce, inViewSauce] = useInView({
+    threshold: 0.2,
+  });
+  const [main, inViewMain] = useInView({
+    threshold: 0.2,
+  });
+
+  useEffect(() => {
+    if (inViewBun) {
+      dispatch({ type: SET_CURRENT_TAB, currentTab: "bun" });
+    } else if (inViewSauce) {
+      dispatch({ type: SET_CURRENT_TAB, currentTab: "sauce" });
+    } else if (inViewMain) {
+      dispatch({ type: SET_CURRENT_TAB, currentTab: "main" });
+    }
+  }, [inViewBun, inViewSauce, inViewMain, dispatch]);
+
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === "bun"),
     [ingredients]
@@ -23,11 +47,8 @@ const BurgerIngredients = ({ openModalIngredient }) => {
     () => ingredients.filter((item) => item.type === "sauce"),
     [ingredients]
   );
-  const bunsRef = useRef(null);
-  const saucesRef = useRef(null);
-  const mainsRef = useRef(null);
-  const tabClick = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
+  const tabClick = (value) => {
+    document.querySelector(`.${value}`).scrollIntoView({ behavior: "smooth" });
   };
   return (
     <section className={styles.ingredients}>
@@ -35,37 +56,41 @@ const BurgerIngredients = ({ openModalIngredient }) => {
       <div className={`${styles.tab__bar} mb-10`}>
         <Tab
           value="bun"
-          active={current === "bun"}
-          onClick={() => {
-            setCurrent("bun");
-            tabClick(bunsRef);
+          active={currentTab === "bun"}
+          inViewBun={inViewBun}
+          onClick={(value) => {
+            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            tabClick(value);
           }}
         >
           Булки
         </Tab>
+
         <Tab
           value="sauce"
-          active={current === "sauce"}
-          onClick={() => {
-            setCurrent("sauce");
-            tabClick(saucesRef);
+          active={currentTab === "sauce"}
+          inViewSauce={inViewSauce}
+          onClick={(value) => {
+            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            tabClick(value);
           }}
         >
           Соусы
         </Tab>
         <Tab
           value="main"
-          active={current === "main"}
-          onClick={() => {
-            setCurrent("main");
-            tabClick(mainsRef);
+          active={currentTab === "main"}
+          inViewMain={inViewMain}
+          onClick={(value) => {
+            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            tabClick(value);
           }}
         >
           Начинки
         </Tab>
       </div>
       <ul className={`${styles.list_types} pl-2`}>
-        <li ref={bunsRef}>
+        <li ref={bun}>
           <h3 className="text text_type_main-medium mb-6">Булки</h3>
           <ul className={styles.list_ingredients}>
             {buns.map((item) => (
@@ -91,7 +116,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
             ))}
           </ul>
         </li>
-        <li ref={saucesRef}>
+        <li ref={sauce}>
           <h3 className="text text_type_main-medium mt-10 mb-6">Соусы</h3>
 
           <ul className={styles.list_ingredients}>
@@ -118,7 +143,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
             ))}
           </ul>
         </li>
-        <li ref={mainsRef}>
+        <li ref={main}>
           <h3 className="text text_type_main-medium mt-10 mb-6">Начинки</h3>
           <ul className={styles.list_ingredients}>
             {mains.map((item) => (

@@ -5,117 +5,80 @@ import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import { OrderDetails } from "../order-details/OrderDetails";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
-import { dataRequest, orderRequest } from "../../utils/constants";
+
 import { Modal } from "../modal/modal";
-import { DataContext } from "../../services/dataContext";
-import { BunContext } from "../../services/bunContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredientsList";
+import { getOrder } from "../../services/actions/order";
+import { OPEN_MODAL, CLOSE_MODAL } from "../../services/actions/modals";
 
 const App = () => {
-  const [ingredients, setIngredients] = useState([]);
-  const [ingredientModal, setIngredientModal] = useState(null);
+  const dispatch = useDispatch();
 
-  const [bun, setBun] = useState(null);
-  const [status, setDownloadStatus] = useState({
-    isLoading: true,
-    hasError: false,
-    error: "",
-  });
-  const [orderNumber, setOrderNumber] = useState(0);
-  const [orderError, setOrderError] = useState(null);
+  const ingredients = useSelector((store) => store.ingredientsList.ingredients);
+  const ingredientsRequest = useSelector(
+    (store) => store.ingredientsList.ingredientsRequest
+  );
+  const ingredientsFailed = useSelector(
+    (store) => store.ingredientsList.ingredientsFailed
+  );
+  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const currentIngredient = useSelector(
+    (store) => store.modals.currentIngredient
+  );
+  const order = useSelector((store) => store.order.order);
+
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
-
-  const [openIngredientDetails, setOpenIngredientDetails] = useState(false);
 
   const closeModals = () => {
     setOpenOrderDetails(false);
-    setOpenIngredientDetails(false);
+    dispatch({ type: CLOSE_MODAL });
   };
 
   const openModalIngredient = (ingredient) => {
-    setIngredientModal(ingredient);
-    setOpenIngredientDetails(true);
+    dispatch({ type: OPEN_MODAL, payload: ingredient });
   };
 
   const openModalOrder = () => {
-    setOrderData();
-    setOpenOrderDetails(true);
+    dispatch(
+      getOrder([bun._id, ...otherIngredients.map((item) => item._id), bun._id])
+    );
   };
 
-  useMemo(() => {
-    const currentBun = ingredients.find((item) => {
-      return item.type === "bun";
-    });
-    setBun(currentBun);
-  }, [ingredients, setBun]);
-
-  const getProductData = () => {
-    dataRequest()
-      .then((res) => {
-        setIngredients(res.data);
-        setDownloadStatus({
-          ...status,
-          isLoading: false,
-        });
-      })
-      .catch((err) => {
-        setDownloadStatus({
-          ...status,
-          isLoading: false,
-          hasError: true,
-          error: err,
-        });
-      });
-  };
   const otherIngredients = useMemo(
     () => ingredients.filter((item) => item.type !== "bun"),
     [ingredients]
   );
 
-  const setOrderData = () => {
-    orderRequest([
-      bun._id,
-      ...otherIngredients.map((item) => item._id),
-      bun._id,
-    ])
-      .then((res) => {
-        setOrderNumber(res.order.number);
-      })
-      .catch((err) => {
-        setOrderError(err);
-      });
-  };
-
   useEffect(() => {
-    getProductData();
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app__layout}>
       <AppHeader />
       <main className={styles.main}>
-        {status.hasError && <p>Ошибка получения данных с сервера</p>}
-        {ingredients.length && !status.hasError && (
-          <DataContext.Provider value={{ ingredients }}>
-            <BunContext.Provider value={{ bun, setBun }}>
-              <BurgerIngredients
-                openModalIngredient={openModalIngredient}
-              ></BurgerIngredients>
-              <BurgerConstructor
-                openModalOrder={openModalOrder}
-              ></BurgerConstructor>
-            </BunContext.Provider>
-          </DataContext.Provider>
+        {ingredients && !ingredientsFailed && !ingredientsRequest && (
+          <>
+            <BurgerIngredients
+              openModalIngredient={openModalIngredient}
+            ></BurgerIngredients>
+            {/* <BurgerConstructor
+              openModalOrder={openModalOrder}
+            ></BurgerConstructor> */}
+          </>
         )}
-        {status.hasError && <p>Ошибка получения данных с сервера</p>}
+        {ingredientsFailed && <p>Ошибка получения данных с сервера</p>}
+        {ingredientsRequest && "Загрузка..."}
       </main>
-      {openIngredientDetails && (
+      {currentIngredient && (
         <Modal header="Детали ингредиента" onClose={closeModals}>
-          <IngredientDetails ingredient={ingredientModal} />
+          <IngredientDetails ingredient={currentIngredient} />
         </Modal>
       )}
       {openOrderDetails && (
         <Modal onClose={closeModals} header="">
-          <OrderDetails orderNumber={orderNumber} />
+          <OrderDetails orderNumber={order} />
         </Modal>
       )}
     </div>
