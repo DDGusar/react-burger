@@ -45,6 +45,7 @@ const App = () => {
     dispatch(
       getOrder([bun._id, ...otherIngredients.map((item) => item._id), bun._id])
     );
+    setOpenOrderDetails(true);
   };
 
   const otherIngredients = useMemo(
@@ -66,9 +67,9 @@ const App = () => {
               <BurgerIngredients
                 openModalIngredient={openModalIngredient}
               ></BurgerIngredients>
-              {/* <BurgerConstructor
-              openModalOrder={openModalOrder}
-            ></BurgerConstructor> */}
+              <BurgerConstructor
+                openModalOrder={openModalOrder}
+              ></BurgerConstructor>
             </DndProvider>
           </>
         )}

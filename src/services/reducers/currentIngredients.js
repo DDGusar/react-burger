@@ -9,6 +9,7 @@ import {
 const initialState = {
   currentIngredients: [],
   currentBun: null,
+  totalPrice: 0,
 };
 export const currentIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,6 +17,7 @@ export const currentIngredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         currentBun: action.payload,
+        totalPrice: state.totalPrice + action.payload.price * 2,
       };
     }
     case ADD_INGREDIENT: {
@@ -23,8 +25,9 @@ export const currentIngredientsReducer = (state = initialState, action) => {
         ...state,
         currentIngredients: [
           ...state.currentIngredients,
-          { uid: uuid(), data: action.payload },
+          { uid: uuid(), ...action.payload },
         ],
+        totalPrice: state.totalPrice + action.payload.price,
       };
     }
     case DELETE_INGREDIENT: {
@@ -33,6 +36,7 @@ export const currentIngredientsReducer = (state = initialState, action) => {
         currentIngredients: [...state.currentIngredients].filter(
           (el) => el.uid !== action.payload
         ),
+        totalPrice: state.totalPrice - action.payload.price,
       };
     }
     //   case SWAP_INGREDIENT: {

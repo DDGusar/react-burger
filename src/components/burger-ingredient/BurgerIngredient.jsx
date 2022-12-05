@@ -11,25 +11,26 @@ import { ingredientType } from "../../utils/types";
 import { useDrag } from "react-dnd";
 
 export const BurgerIngredient = ({ item, openModalIngredient }) => {
+  // const ingredients = useSelector((store) => store.ingredientsList.ingredients);
+  // const bun = useSelector((store) => store.currentIngredients.currentBun);
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
-    item: { item },
+    item: item,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.2 : 1,
     }),
   });
   const setCounter = 2;
-  //   useMemo(() => {
-  //     // if (ingredient.type === "bun") {
-  //     //   return bun && ingredient._id === bun._id ? 2 : 0;
-  //     // } else {
-  //     //   return (
-  //     //     ingredients.length > 0 &&
-  //     //     ingredients.filter((element) => element.data._id === ingredient._id)
-  //     //       .length
-  //     //   );
-  //     // }
-  //   }, [bun, ingredients, ingredient._id, ingredient.type]);
+  // useMemo(() => {
+  //   if (item.type === "bun") {
+  //     return bun && item._id === bun._id ? 2 : 0;
+  //   } else {
+  //     return (
+  //       ingredients.length > 0 &&
+  //       ingredients.filter((element) => element.data._id === item._id).length
+  //     );
+  //   }
+  // }, [bun, ingredients, item._id, item.type]);
 
   return (
     <li

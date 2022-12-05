@@ -4,7 +4,7 @@ import {
   GET_ORDER_FAILED,
 } from "../actions/order";
 const initialState = {
-  order: null,
+  order: 0,
   orderRequest: false,
   orderFailed: false,
 };
