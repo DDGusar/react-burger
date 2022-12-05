@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredientsList";
 import { getOrder } from "../../services/actions/order";
 import { OPEN_MODAL, CLOSE_MODAL } from "../../services/actions/modals";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -60,12 +62,14 @@ const App = () => {
       <main className={styles.main}>
         {ingredients && !ingredientsFailed && !ingredientsRequest && (
           <>
-            <BurgerIngredients
-              openModalIngredient={openModalIngredient}
-            ></BurgerIngredients>
-            {/* <BurgerConstructor
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients
+                openModalIngredient={openModalIngredient}
+              ></BurgerIngredients>
+              {/* <BurgerConstructor
               openModalOrder={openModalOrder}
             ></BurgerConstructor> */}
+            </DndProvider>
           </>
         )}
         {ingredientsFailed && <p>Ошибка получения данных с сервера</p>}
