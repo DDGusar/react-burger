@@ -31,15 +31,6 @@
   background: #8585ad;
 }
 
-.item__topping {
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.item__topping:last-child {
-  padding: 0;
-}
 .order {
   display: grid;
   grid-template-columns: 1fr 215px;

@@ -7,12 +7,12 @@ import {
   CurrencyIcon,
   Button,
   ConstructorElement,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   ADD_BUN,
   ADD_INGREDIENT,
 } from "../../services/actions/currentIngredients";
+import { BurgerConstructorElement } from "../burger-constructor-element/BurgerConstructorElement";
 
 const BurgerConstructor = ({ openModalOrder }) => {
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ const BurgerConstructor = ({ openModalOrder }) => {
   });
 
   const isDisabledButton = useMemo(() => {
-    console.log(ingredients.length > 0 && bun);
     return !(ingredients.length > 0 && bun);
   }, [ingredients, bun]);
 
@@ -95,16 +94,17 @@ const BurgerConstructor = ({ openModalOrder }) => {
             </div>
           )}
 
-          {otherIngredients.map((item) => (
-            <li className={`${styles.item__topping} pb-4`} key={item._id}>
-              <DragIcon />
-              <ConstructorElement
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </li>
-          ))}
+          {useMemo(
+            () =>
+              otherIngredients.map((item, index) => (
+                <BurgerConstructorElement
+                  key={item.uid}
+                  item={item}
+                  index={index}
+                />
+              )),
+            [otherIngredients]
+          )}
         </ul>
 
         {bun && (
