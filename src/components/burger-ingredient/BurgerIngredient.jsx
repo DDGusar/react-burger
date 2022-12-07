@@ -6,13 +6,16 @@ import styles from "./burgerIngredient.module.css";
 
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-// import { useMemo } from "react";
-// import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 export const BurgerIngredient = ({ item, openModalIngredient }) => {
-  // const ingredients = useSelector((store) => store.ingredientsList.ingredients);
-  // const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const ingredients = useSelector(
+    (store) => store.currentIngredients.currentIngredients
+  );
+  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const [counter, setCounter] = useState(0);
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
     item: item,
@@ -20,17 +23,17 @@ export const BurgerIngredient = ({ item, openModalIngredient }) => {
       opacity: monitor.isDragging() ? 0.2 : 1,
     }),
   });
-  const setCounter = 2;
-  // useMemo(() => {
-  //   if (item.type === "bun") {
-  //     return bun && item._id === bun._id ? 2 : 0;
-  //   } else {
-  //     return (
-  //       ingredients.length > 0 &&
-  //       ingredients.filter((element) => element.data._id === item._id).length
-  //     );
-  //   }
-  // }, [bun, ingredients, item._id, item.type]);
+
+  useEffect(() => {
+    if (item.type === "bun" && bun && item._id === bun._id) {
+      setCounter(2);
+    } else {
+      ingredients.length > 0 &&
+        setCounter(
+          ingredients.filter((element) => element._id === item._id).length
+        );
+    }
+  }, [bun, ingredients]);
 
   return (
     <li
@@ -42,7 +45,7 @@ export const BurgerIngredient = ({ item, openModalIngredient }) => {
         openModalIngredient(item);
       }}
     >
-      {setCounter > 0 && <Counter count={setCounter} size="default" />}
+      {counter > 0 && <Counter count={counter} size="default" />}
       <img src={item.image} alt={item.name} />
       <div className={`${styles.price} mt-2 mb-2`}>
         <p className="text text_type_digits-default mr-2">{item.price}</p>

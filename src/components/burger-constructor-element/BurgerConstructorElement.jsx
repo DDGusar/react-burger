@@ -38,17 +38,11 @@ export const BurgerConstructorElement = ({ item, index }) => {
 
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
-      swapItem(dragIndex, hoverIndex);
+      dispatch({ type: SWAP_INGREDIENT, dragIndex, hoverIndex });
       item.index = hoverIndex;
     },
   });
 
-  const swapItem = (dragIndex, hoverIndex) => {
-    dispatch({ type: SWAP_INGREDIENT, dragIndex, hoverIndex });
-  };
-  const deleteItem = (item) => {
-    dispatch({ type: DELETE_INGREDIENT, payload: item });
-  };
   const ref = useRef(null);
   const dragDropRef = dragRef(dropRef(ref));
 
@@ -66,7 +60,7 @@ export const BurgerConstructorElement = ({ item, index }) => {
         price={item.price}
         thumbnail={item.image}
         handleClose={() => {
-          deleteItem(item);
+          dispatch({ type: DELETE_INGREDIENT, payload: item });
         }}
       />
     </li>
