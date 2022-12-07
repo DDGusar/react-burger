@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
@@ -18,6 +18,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   const ingredients = useSelector((store) => store.ingredientsList.ingredients);
+  const currentIngredients = useSelector(
+    (store) => store.currentIngredients.currentIngredients
+  );
   const ingredientsRequest = useSelector(
     (store) => store.ingredientsList.ingredientsRequest
   );
@@ -43,15 +46,14 @@ const App = () => {
 
   const openModalOrder = () => {
     dispatch(
-      getOrder([bun._id, ...otherIngredients.map((item) => item._id), bun._id])
+      getOrder([
+        bun._id,
+        ...currentIngredients.map((item) => item._id),
+        bun._id,
+      ])
     );
     setOpenOrderDetails(true);
   };
-
-  const otherIngredients = useMemo(
-    () => ingredients.filter((item) => item.type !== "bun"),
-    [ingredients]
-  );
 
   useEffect(() => {
     dispatch(getIngredients());

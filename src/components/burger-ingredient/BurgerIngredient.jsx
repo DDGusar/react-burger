@@ -33,7 +33,7 @@ export const BurgerIngredient = ({ item, openModalIngredient }) => {
           ingredients.filter((element) => element._id === item._id).length
         );
     }
-  }, [bun, ingredients]);
+  }, [bun, ingredients, item]);
 
   return (
     <li

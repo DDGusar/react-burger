@@ -85,7 +85,7 @@ const BurgerConstructor = ({ openModalOrder }) => {
           )}
           {!bun && otherIngredients.length > 0 && (
             <div className={styles.hint}>
-              <p className="text text_type_main-medium">Добавьте булку</p>
+              <p className="text text_type_main-medium mb-4">Добавьте булку</p>
             </div>
           )}
           {bun && otherIngredients.length === 0 && (

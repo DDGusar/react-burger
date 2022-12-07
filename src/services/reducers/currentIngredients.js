@@ -10,6 +10,7 @@ const initialState = {
   currentIngredients: [],
   currentBun: null,
   totalPrice: 0,
+  bunPrice: 0,
 };
 export const currentIngredientsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,7 +18,9 @@ export const currentIngredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         currentBun: action.payload,
-        totalPrice: state.totalPrice + action.payload.price * 2,
+        totalPrice:
+          state.totalPrice - state.bunPrice + action.payload.price * 2,
+        bunPrice: action.payload.price * 2,
       };
     }
     case ADD_INGREDIENT: {
