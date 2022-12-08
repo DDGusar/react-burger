@@ -9,8 +9,8 @@ import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
 import { useRef } from "react";
 import {
-  SWAP_INGREDIENT,
-  DELETE_INGREDIENT,
+  swapIngredient,
+  deleteIngredient,
 } from "../../services/actions/currentIngredients";
 export const BurgerConstructorElement = ({ item, index }) => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export const BurgerConstructorElement = ({ item, index }) => {
 
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
-      dispatch({ type: SWAP_INGREDIENT, dragIndex, hoverIndex });
+      dispatch(swapIngredient(dragIndex, hoverIndex));
       item.index = hoverIndex;
     },
   });
@@ -60,7 +60,7 @@ export const BurgerConstructorElement = ({ item, index }) => {
         price={item.price}
         thumbnail={item.image}
         handleClose={() => {
-          dispatch({ type: DELETE_INGREDIENT, payload: item });
+          dispatch(deleteIngredient(item));
         }}
       />
     </li>

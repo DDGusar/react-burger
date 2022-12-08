@@ -9,8 +9,8 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
-  ADD_BUN,
-  ADD_INGREDIENT,
+  addIngredient,
+  addBun,
 } from "../../services/actions/currentIngredients";
 import { BurgerConstructorElement } from "../burger-constructor-element/BurgerConstructorElement";
 
@@ -30,13 +30,6 @@ const BurgerConstructor = ({ openModalOrder }) => {
     [ingredients]
   );
 
-  const addBun = (item) => {
-    dispatch({ type: ADD_BUN, payload: item });
-  };
-  const addIngredient = (item) => {
-    dispatch({ type: ADD_INGREDIENT, payload: item });
-  };
-
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
     collect: (monitor) => ({
@@ -44,9 +37,9 @@ const BurgerConstructor = ({ openModalOrder }) => {
     }),
     drop(item) {
       if (item.type === "bun") {
-        addBun(item);
+        dispatch(addBun(item));
       } else {
-        addIngredient(item);
+        dispatch(addIngredient(item));
       }
     },
   });

@@ -25,3 +25,7 @@ export const getIngredients = () => {
       });
   };
 };
+
+export const setCurrentTab = (value) => {
+  return { type: SET_CURRENT_TAB, currentTab: value };
+};

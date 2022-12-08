@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { SET_CURRENT_TAB } from "../../services/actions/ingredientsList";
+import { setCurrentTab } from "../../services/actions/ingredientsList";
 import uuid from "react-uuid";
 import { BurgerIngredient } from "../burger-ingredient/BurgerIngredient";
 
@@ -25,11 +25,11 @@ const BurgerIngredients = ({ openModalIngredient }) => {
 
   useEffect(() => {
     if (inViewBun) {
-      dispatch({ type: SET_CURRENT_TAB, currentTab: "bun" });
+      dispatch(setCurrentTab("bun"));
     } else if (inViewSauce) {
-      dispatch({ type: SET_CURRENT_TAB, currentTab: "sauce" });
+      dispatch(setCurrentTab("sauce"));
     } else if (inViewMain) {
-      dispatch({ type: SET_CURRENT_TAB, currentTab: "main" });
+      dispatch(setCurrentTab("main"));
     }
   }, [inViewBun, inViewSauce, inViewMain, dispatch]);
 
@@ -57,7 +57,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           active={currentTab === "bun"}
           inViewBun={inViewBun}
           onClick={(value) => {
-            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            dispatch(setCurrentTab(value));
             tabClick(value);
           }}
         >
@@ -69,7 +69,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           active={currentTab === "sauce"}
           inViewSauce={inViewSauce}
           onClick={(value) => {
-            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            dispatch(setCurrentTab(value));
             tabClick(value);
           }}
         >
@@ -80,7 +80,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           active={currentTab === "main"}
           inViewMain={inViewMain}
           onClick={(value) => {
-            dispatch({ type: SET_CURRENT_TAB, currentTab: value });
+            dispatch(setCurrentTab(value));
             tabClick(value);
           }}
         >

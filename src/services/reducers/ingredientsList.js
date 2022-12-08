@@ -42,7 +42,7 @@ export const ingredientsListReducer = (state = initialState, action) => {
       };
     }
     default: {
-      return { ...state };
+      return state;
     }
   }
 };

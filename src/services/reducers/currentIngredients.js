@@ -1,9 +1,9 @@
-import uuid from "react-uuid";
 import {
   ADD_BUN,
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   SWAP_INGREDIENT,
+  CLEAN_CART,
 } from "../actions/currentIngredients";
 
 const initialState = {
@@ -26,10 +26,7 @@ export const currentIngredientsReducer = (state = initialState, action) => {
     case ADD_INGREDIENT: {
       return {
         ...state,
-        currentIngredients: [
-          ...state.currentIngredients,
-          { uid: uuid(), ...action.payload },
-        ],
+        currentIngredients: [...state.currentIngredients, action.payload],
         totalPrice: state.totalPrice + action.payload.price,
       };
     }
@@ -50,6 +47,15 @@ export const currentIngredientsReducer = (state = initialState, action) => {
           action.hoverIndex,
           action.dragIndex
         ),
+      };
+    }
+    case CLEAN_CART: {
+      return {
+        ...state,
+        currentIngredients: [],
+        currentBun: null,
+        totalPrice: 0,
+        bunPrice: 0,
       };
     }
     default: {

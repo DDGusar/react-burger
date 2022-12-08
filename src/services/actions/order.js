@@ -1,4 +1,5 @@
 import { orderRequest } from "../../utils/api";
+import { cleanCart } from "./currentIngredients";
 
 export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
@@ -15,6 +16,9 @@ export const getOrder = (ingredientsIdArray) => {
           type: GET_ORDER_SUCCESS,
           order: res.order.number,
         });
+      })
+      .then(() => {
+        dispatch(cleanCart());
       })
       .catch((err) => {
         dispatch({
