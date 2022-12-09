@@ -93,7 +93,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           <ul className={styles.list_ingredients}>
             {buns.map((item) => (
               <BurgerIngredient
-                key={uuid()}
+                key={item._id}
                 item={item}
                 openModalIngredient={openModalIngredient}
               />
@@ -106,7 +106,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           <ul className={styles.list_ingredients}>
             {sauces.map((item) => (
               <BurgerIngredient
-                key={uuid()}
+                key={item._id}
                 item={item}
                 openModalIngredient={openModalIngredient}
               />
@@ -118,7 +118,7 @@ const BurgerIngredients = ({ openModalIngredient }) => {
           <ul className={styles.list_ingredients}>
             {mains.map((item) => (
               <BurgerIngredient
-                key={uuid()}
+                key={item._id}
                 item={item}
                 openModalIngredient={openModalIngredient}
               />
