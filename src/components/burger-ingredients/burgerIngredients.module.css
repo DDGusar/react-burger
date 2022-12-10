@@ -36,21 +36,3 @@
 .tab__bar {
   display: flex;
 }
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.price {
-  display: flex;
-  align-items: center;
-}
-
-.name {
-  text-align: center;
-  min-height: 48px;
-}

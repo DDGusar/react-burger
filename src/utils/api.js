@@ -5,24 +5,27 @@ const apiConfig = {
   },
 };
 
+async function request(url, options) {
+  const res = await fetch(url, options);
+  return getResponse(res);
+}
+
 const getResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 };
 
 export const dataRequest = async () => {
-  const res = await fetch(`${apiConfig.baseURL}ingredients`);
-  return getResponse(res);
+  return request(`${apiConfig.baseURL}ingredients`);
 };
 
 export const orderRequest = async (orderData) => {
-  const res = await fetch(`${apiConfig.baseURL}orders`, {
+  return request(`${apiConfig.baseURL}orders`, {
     method: "POST",
     headers: apiConfig.headers,
     body: JSON.stringify({
       ingredients: orderData,
     }),
   });
-  return getResponse(res);
 };
 
 export const modalRoot = document.querySelector("#react-modals");
