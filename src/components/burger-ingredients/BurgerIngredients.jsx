@@ -5,7 +5,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { setCurrentTab } from "../../services/actions/ingredientsList";
-import uuid from "react-uuid";
 import { BurgerIngredient } from "../burger-ingredient/BurgerIngredient";
 
 const BurgerIngredients = ({ openModalIngredient }) => {
