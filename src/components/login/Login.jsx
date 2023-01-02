@@ -5,13 +5,17 @@ import {
   PasswordInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 import { useForm } from "../../utils/utils";
 export const Login = () => {
-  const { values, onChange, setValues } = useForm({ email: "", password: "" });
+  const { values, onChange, setValues, onSubmit } = useForm({
+    email: "",
+    password: "",
+  });
   return (
     <section className={styles.content}>
       <h1 className={`text text_type_main-medium mb-6`}>Вход</h1>
-      <form className={`${styles.form} mb-20`}>
+      <form className={`${styles.form} mb-20`} onSubmit={onSubmit}>
         <Input
           type={"email"}
           placeholder={"E-mail"}
@@ -33,25 +37,29 @@ export const Login = () => {
       </form>
       <p className={`text text_type_main-default text_color_inactive`}>
         Вы — новый пользователь?
-        <Button
-          htmlType="button"
-          type="secondary"
-          size="medium"
-          extraClass="pl-2 pb-2"
-        >
-          Зарегистрироваться
-        </Button>
+        <Link to="/register">
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass="pl-2 pb-2"
+          >
+            Зарегистрироваться
+          </Button>
+        </Link>
       </p>
       <p className={`text text_type_main-default text_color_inactive`}>
         Забыли пароль?{" "}
-        <Button
-          htmlType="button"
-          type="secondary"
-          size="medium"
-          extraClass="pl-2 pt-2"
-        >
-          Восстановить пароль
-        </Button>
+        <Link to="/forgot-password">
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="medium"
+            extraClass="pl-2 pt-2"
+          >
+            Восстановить пароль
+          </Button>
+        </Link>
       </p>
     </section>
   );

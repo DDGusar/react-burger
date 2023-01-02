@@ -14,24 +14,23 @@ const App = () => {
       <AppHeader />
       <main className={styles.main}>
         <Router>
-          <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route path="/register">
-              <RegisterPage />
-            </Route>
-
-            <Route path="/forgot-password">
-              <ForgotPasswordPage />
-            </Route>
-            <Route path="/reset-password">
-              <ResetPasswordPage />
-            </Route>
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
+          <React.StrictMode>
+            <Switch>
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/register" component={RegisterPage} />
+              <Route
+                exact
+                path="/forgot-password"
+                component={ForgotPasswordPage}
+              />
+              <Route
+                exact
+                path="/reset-password"
+                component={ResetPasswordPage}
+              />
+              <Route exact path="/" component={HomePage} />
+            </Switch>
+          </React.StrictMode>
         </Router>
       </main>
     </div>

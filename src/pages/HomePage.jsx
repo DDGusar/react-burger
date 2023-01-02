@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import { OrderDetails } from "../components/order-details/OrderDetails";
@@ -31,6 +32,8 @@ export function HomePage() {
   const order = useSelector((store) => store.order.order);
   const orderRequest = useSelector((store) => store.order.orderRequest);
 
+  const user = useSelector((store) => store.user.user);
+
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
 
   const closeModals = () => {
@@ -56,6 +59,10 @@ export function HomePage() {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
+  // if (!user) {
+  //   return <Redirect to={"/login"} />;
+  // }
   return (
     <>
       {ingredients && !ingredientsFailed && !ingredientsRequest && (
