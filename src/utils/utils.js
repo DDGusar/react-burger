@@ -6,8 +6,6 @@ export function useForm(inputValues) {
     const { value, name } = e.target;
     setValues({ ...values, [name]: value });
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
-  return { values, onChange, setValues, onSubmit };
+
+  return { values, onChange, setValues };
 }

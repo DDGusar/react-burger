@@ -4,6 +4,8 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  text-decoration: none;
+  color: #f2f2f3;
 }
 .price {
   display: flex;

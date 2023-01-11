@@ -8,12 +8,28 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILED,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILED,
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_FAILED,
+  EXIT_REQUEST,
+  EXIT_SUCCESS,
+  EXIT_FAILED,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
 } from "../actions/user";
 
 const initialState = {
   user: null,
   registerRequest: false,
   registerFailed: false,
+  registerSuccess: false,
 
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
@@ -22,6 +38,28 @@ const initialState = {
   resetPasswordRequest: false,
   resetPasswordFailed: false,
   resetPasswordSuccess: false,
+
+  authRequest: false,
+  authSuccess: false,
+  authFailed: false,
+
+  tokenRequest: false,
+  tokenSuccess: false,
+  tokenFailed: false,
+
+  exitRequest: false,
+  exitSuccess: false,
+  exitFailed: false,
+
+  userRequest: false,
+  userSuccess: false,
+  userFailed: false,
+
+  updateRequest: false,
+  updateSuccess: false,
+  updateFailed: false,
+
+  expiredToken: false,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -38,6 +76,7 @@ export const userReducer = (state = initialState, action) => {
         registerRequest: false,
         user: action.user,
         registerFailed: false,
+        registerSuccess: true,
       };
     }
     case REGISTRATION_FAILED: {
@@ -89,6 +128,121 @@ export const userReducer = (state = initialState, action) => {
         resetPasswordRequest: false,
       };
     }
+    case AUTH_REQUEST: {
+      return {
+        ...state,
+        authRequest: true,
+      };
+    }
+    case AUTH_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authSuccess: true,
+        authFailed: false,
+        user: action.user,
+      };
+    }
+    case AUTH_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      };
+    }
+    case UPDATE_TOKEN_REQUEST: {
+      return {
+        ...state,
+        tokenRequest: true,
+      };
+    }
+    case UPDATE_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        tokenRequest: false,
+        tokenSuccess: true,
+        tokenFailed: false,
+        expiredToken: false,
+      };
+    }
+    case UPDATE_TOKEN_FAILED: {
+      return {
+        ...state,
+        tokenRequest: false,
+        tokenFailed: true,
+        expiredToken: false,
+      };
+    }
+    case EXIT_REQUEST: {
+      return {
+        ...state,
+        exitRequest: true,
+      };
+    }
+    case EXIT_SUCCESS: {
+      return {
+        ...state,
+        exitRequest: false,
+        exitSuccess: true,
+        exitFailed: false,
+        user: null,
+      };
+    }
+    case EXIT_FAILED: {
+      return {
+        ...state,
+        exitRequest: false,
+        exitFailed: true,
+      };
+    }
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        userRequest: true,
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        userRequest: false,
+        userSuccess: true,
+        userFailed: false,
+        user: action.user,
+      };
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        userRequest: false,
+        userFailed: true,
+        expiredToken: true,
+      };
+    }
+
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        updateRequest: true,
+      };
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        updateRequest: false,
+        updateSuccess: true,
+        updateFailed: false,
+        user: action.payload,
+      };
+    }
+    case UPDATE_USER_FAILED: {
+      return {
+        ...state,
+        updateRequest: false,
+        updateFailed: true,
+        expiredToken: true,
+      };
+    }
+
     default: {
       return state;
     }

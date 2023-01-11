@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./login.module.css";
 import {
   Button,
   PasswordInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authUser } from "../../services/actions/user";
 import { useForm } from "../../utils/utils";
 export const Login = () => {
-  const { values, onChange, setValues, onSubmit } = useForm({
+  const { values, onChange, setValues } = useForm({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user.user);
+  const exitRequest = useSelector((store) => store.user.exitRequest);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(authUser(values.email, values.password));
+  };
+  const location = useLocation();
+  if (user && !exitRequest) {
+    return <Redirect to={location?.state?.from || "/"} />;
+  }
   return (
     <section className={styles.content}>
       <h1 className={`text text_type_main-medium mb-6`}>Вход</h1>
-      <form className={`${styles.form} mb-20`} onSubmit={onSubmit}>
+      <form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
         <Input
           type={"email"}
           placeholder={"E-mail"}
@@ -31,7 +44,12 @@ export const Login = () => {
           value={values.password}
           name={"password"}
         />
-        <Button htmlType="button" type="primary" size="medium">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="medium"
+          onClick={handleSubmit}
+        >
           Войти
         </Button>
       </form>

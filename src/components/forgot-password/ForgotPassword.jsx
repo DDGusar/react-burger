@@ -3,17 +3,19 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "../../utils/utils";
 import { forgotPasswordUser } from "../../services/actions/user";
 export const ForgotPassword = () => {
-  const { values, onChange, setValues, onSubmit } = useForm({
+  const { values, onChange, setValues } = useForm({
     email: "",
   });
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const user = useSelector((store) => store.user.user);
   const forgotSuccess = useSelector(
     (store) => store.user.forgotPasswordSuccess
   );
@@ -22,7 +24,17 @@ export const ForgotPassword = () => {
     dispatch(forgotPasswordUser(values.email));
   };
   if (forgotSuccess) {
-    return <Redirect to={"/reset-password"} />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/reset-password",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  }
+  if (user) {
+    return <Redirect to={"/"} />;
   }
   return (
     <section className={styles.content}>

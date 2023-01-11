@@ -1,3 +1,5 @@
+import { getCookie } from "./cookie";
+
 const apiConfig = {
   baseURL: "https://norma.nomoreparties.space/api/",
   headers: {
@@ -57,6 +59,62 @@ export const resetPasswordRequest = async (password, token) => {
     body: JSON.stringify({
       password: password,
       token: token,
+    }),
+  });
+};
+
+export const authRequest = async (email, password) => {
+  return request(`${apiConfig.baseURL}auth/login`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+};
+
+export const getAuthToken = async () => {
+  return request(`${apiConfig.baseURL}auth/token`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      token: getCookie("refreshToken"),
+    }),
+  });
+};
+
+export const logOut = async () => {
+  return request(`${apiConfig.baseURL}auth/logout`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({
+      token: getCookie("refreshToken"),
+    }),
+  });
+};
+
+export const getUserData = async () => {
+  return request(`${apiConfig.baseURL}auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("authToken"),
+    },
+  });
+};
+
+export const updateUserData = async (name, email, password) => {
+  return request(`${apiConfig.baseURL}auth/user`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("authToken"),
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
     }),
   });
 };

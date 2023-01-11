@@ -4,24 +4,32 @@ import {
   PasswordInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "../../utils/utils";
 import { resetPasswordUser } from "../../services/actions/user";
 export const ResetPassword = () => {
-  const { values, onChange, setValues, onSubmit } = useForm({
+  const { values, onChange, setValues } = useForm({
     password: "",
     token: "",
   });
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.user.user);
   const resetSuccess = useSelector((store) => store.user.resetPasswordSuccess);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPasswordUser(values.password, values.token));
   };
+  const location = useLocation();
+  if (location.state?.from !== "/forgot-password") {
+    return <Redirect to={"/"} />;
+  }
   if (resetSuccess) {
     return <Redirect to={"/login"} />;
+  }
+  if (user) {
+    return <Redirect to={"/"} />;
   }
   return (
     <section className={styles.content}>
