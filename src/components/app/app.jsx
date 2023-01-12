@@ -35,9 +35,6 @@ const App = () => {
   const expiredToken = useSelector((store) => store.user.expiredToken);
   const tokenFailed = useSelector((store) => store.user.tokenFailed);
 
-  const currentIngredient = useSelector(
-    (store) => store.modals.currentIngredient
-  );
   const currentIngredients = useSelector(
     (store) => store.currentIngredients.currentIngredients
   );
@@ -51,6 +48,7 @@ const App = () => {
   const closeModals = () => {
     setOpenOrderDetails(false);
     dispatch(closeModal());
+    history.replace("/");
   };
   const openModalIngredient = (ingredient) => {
     dispatch(openModal(ingredient));
@@ -107,7 +105,12 @@ const App = () => {
           <ProtectedRoute exact path="/profile">
             <ProfilePage />
           </ProtectedRoute>
-          <Route exact path="/ingredients/:id" component={IngredientPage} />
+          <Route exact path="/ingredients/:id">
+            <div className={styles.content}>
+              <h1 className="text text_type_main-large">Детали ингредиента</h1>
+              <IngredientPage />
+            </div>
+          </Route>
           <Route exact path="/">
             <HomePage
               openModalIngredient={openModalIngredient}
@@ -118,18 +121,13 @@ const App = () => {
         </Switch>
         {background && (
           <Route exact path="/ingredients/:id">
-            <Modal handleClose={closeModals}>
+            <Modal header="Детали ингредиента" onClose={closeModals}>
               <IngredientDetails />
             </Modal>
           </Route>
         )}
-        {/* {currentIngredient && (
-          <Modal header="Детали ингредиента" onClose={closeModals}>
-            <IngredientDetails ingredient={currentIngredient} />
-          </Modal>
-        )} */}
         {openOrderDetails && (
-          <Modal onClose={closeModals} header="">
+          <Modal onClose={closeModals}>
             <>
               {orderRequest && (
                 <p className={`text text_type_main-medium`}>Загрузка...</p>

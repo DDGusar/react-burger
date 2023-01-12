@@ -16,7 +16,7 @@ export const Profile = () => {
   const updateFailed = useSelector((store) => store.user.updateFailed);
   const expiredToken = useSelector((store) => store.user.expiredToken);
   const dispatch = useDispatch();
-  const { values, onChange, setValues, onSubmit } = useForm({
+  const { values, onChange, setValues } = useForm({
     name: user.name,
     email: user.email,
     password: "",
@@ -44,7 +44,7 @@ export const Profile = () => {
   };
 
   const nameRef = useRef(null);
-  const passwordRef = useRef(null);
+  // const passwordRef = useRef(null);
   const emailRef = useRef(null);
   const nameClick = () => {
     setTimeout(() => nameRef.current.focus(), 0);
@@ -52,9 +52,9 @@ export const Profile = () => {
   const emailClick = () => {
     setTimeout(() => emailRef.current.focus(), 0);
   };
-  const passwordClick = () => {
-    setTimeout(() => passwordRef.current.focus(), 0);
-  };
+  // const passwordClick = () => {
+  //   setTimeout(() => passwordRef.current.focus(), 0);
+  // };
 
   useEffect(() => {
     if (updateFailed && !expiredToken) {
@@ -136,18 +136,23 @@ export const Profile = () => {
           onChange={onChange}
           value={values.password}
           name={"password"}
-          icon={"EditIcon"}
-          onIconClick={passwordClick}
-          ref={passwordRef}
+          icon="EditIcon"
         />
         <div className={`${styles.buttons}`}>
-          <Button type="secondary" size="medium" onClick={handleReset}>
+          <Button
+            type="secondary"
+            size="medium"
+            onClick={handleReset}
+            htmlType="button"
+          >
             Отмена
           </Button>
           <Button
             disabled={!(values.name && values.email && values.password)}
             type="primary"
             size="medium"
+            htmlType="button"
+            onClick={handleSubmit}
           >
             Сохранить
           </Button>

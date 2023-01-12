@@ -58,7 +58,7 @@ export const ForgotPassword = () => {
           size="medium"
           onClick={handleSubmit}
         >
-          Зарегистрироваться
+          Восстановить
         </Button>
       </form>
       <p className={`text text_type_main-default text_color_inactive`}>

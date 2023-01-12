@@ -28,9 +28,9 @@ export const ResetPassword = () => {
   if (resetSuccess) {
     return <Redirect to={"/login"} />;
   }
-  if (user) {
-    return <Redirect to={"/"} />;
-  }
+  // if (user) {
+  //   return <Redirect to={"/"} />;
+  // }
   return (
     <section className={styles.content}>
       <h1 className={`text text_type_main-medium mb-6`}>
@@ -53,7 +53,13 @@ export const ResetPassword = () => {
           errorText={"Ошибка"}
           size={"default"}
         />
-        <Button htmlType="button" type="primary" size="medium">
+        <Button
+          disabled={!(values.token && values.password)}
+          onClick={handleSubmit}
+          htmlType="button"
+          type="primary"
+          size="medium"
+        >
           Сохранить
         </Button>
       </form>{" "}

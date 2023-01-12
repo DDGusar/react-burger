@@ -3,9 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 export const IngredientDetails = () => {
   const { id } = useParams();
-  const ingredients = useSelector(
-    (store) => store.currentIngredients.currentIngredients
-  );
+  const ingredients = useSelector((store) => store.ingredientsList.ingredients);
   const ingredient = ingredients.find((el) => el._id === id);
   return (
     ingredient && (
