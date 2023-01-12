@@ -80,7 +80,7 @@ export const Profile = () => {
           exact
           to="/profile"
           activeClassName={`${styles.activeLink}`}
-          className={`${styles.link} text text_type_main-medium`}
+          className={`${styles.link} text text_type_main-medium text_color_inactive`}
         >
           Профиль
         </NavLink>

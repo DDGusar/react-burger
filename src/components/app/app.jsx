@@ -15,6 +15,7 @@ import { ResetPasswordPage } from "../../pages/ResetPasswordPage";
 import { ProfilePage } from "../../pages/ProfilePage";
 import { NotFound404Page } from "../../pages/NotFound404Page";
 import { IngredientPage } from "../../pages/IngredientPage";
+import { ProfileOrdersPage } from "../../pages/ProfileOrdersPage";
 
 import { OrderDetails } from "../order-details/OrderDetails";
 import { IngredientDetails } from "../ingredient-details/IngredientDetails";
@@ -104,6 +105,9 @@ const App = () => {
           <Route exact path="/reset-password" component={ResetPasswordPage} />
           <ProtectedRoute exact path="/profile">
             <ProfilePage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/profile/orders">
+            <ProfileOrdersPage />
           </ProtectedRoute>
           <Route exact path="/ingredients/:id">
             <div className={styles.content}>
