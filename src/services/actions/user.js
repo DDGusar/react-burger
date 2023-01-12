@@ -100,7 +100,6 @@ export const resetPasswordUser = (password, token) => {
     });
     resetPasswordRequest(password, token)
       .then((res) => {
-        console.log(res);
         dispatch({
           type: RESET_PASSWORD_SUCCESS,
           resetPasswordSuccess: res.success,

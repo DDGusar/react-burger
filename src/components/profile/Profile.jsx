@@ -44,7 +44,6 @@ export const Profile = () => {
   };
 
   const nameRef = useRef(null);
-  // const passwordRef = useRef(null);
   const emailRef = useRef(null);
   const nameClick = () => {
     setTimeout(() => nameRef.current.focus(), 0);
@@ -52,9 +51,6 @@ export const Profile = () => {
   const emailClick = () => {
     setTimeout(() => emailRef.current.focus(), 0);
   };
-  // const passwordClick = () => {
-  //   setTimeout(() => passwordRef.current.focus(), 0);
-  // };
 
   useEffect(() => {
     if (updateFailed && !expiredToken) {

@@ -35,11 +35,3 @@
   composes: list__item;
   justify-self: end;
 }
-
-/* .link {
-  text-decoration: none;
-}
-.link :hover {
-  cursor: pointer;
-  opacity: 0.8;
-} */

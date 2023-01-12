@@ -21,7 +21,6 @@ export const Register = () => {
     e.preventDefault();
     dispatch(registerUser(values.email, values.password, values.name));
   };
-  console.log(user);
   if (user) {
     return <Redirect to={"/"} />;
   }
