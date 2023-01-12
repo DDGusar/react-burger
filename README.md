@@ -16,4 +16,4 @@
 * осуществляется запрос к серверу, API
 * перетаскивание элементов с помощью технологии Drag and Drop
 
-https://ddgusar.github.io/react-burger/
+https://ddgusar.github.io/
