@@ -15,7 +15,6 @@ export const ResetPassword = () => {
     token: "",
   });
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.user);
   const resetSuccess = useSelector((store) => store.user.resetPasswordSuccess);
   const handleSubmit = (e) => {
     e.preventDefault();
