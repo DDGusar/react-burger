@@ -13,6 +13,7 @@ import {
   addBun,
 } from "../../services/actions/currentIngredients";
 import { BurgerConstructorElement } from "../burger-constructor-element/BurgerConstructorElement";
+import * as selectors from "../../services/selectors";
 
 const BurgerConstructor = ({ openModalOrder }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const BurgerConstructor = ({ openModalOrder }) => {
   const ingredients = useSelector(
     (store) => store.currentIngredients.currentIngredients
   );
-  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const bun = useSelector(selectors.currentBun);
   const totalPrice = useSelector(
     (store) => store.currentIngredients.totalPrice
   );

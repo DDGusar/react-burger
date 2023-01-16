@@ -9,12 +9,15 @@ import { ingredientType } from "../../utils/types";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
+import { useLocation, Link } from "react-router-dom";
+import * as selectors from "../../services/selectors";
 
 export const BurgerIngredient = ({ item, openModalIngredient }) => {
   const ingredients = useSelector(
     (store) => store.currentIngredients.currentIngredients
   );
-  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const bun = useSelector(selectors.currentBun);
+  const location = useLocation();
   const [counter, setCounter] = useState(0);
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredient",
@@ -40,20 +43,28 @@ export const BurgerIngredient = ({ item, openModalIngredient }) => {
       draggable
       ref={dragRef}
       style={{ opacity }}
-      className={`${styles.card}`}
+      className={``}
       onClick={() => {
         openModalIngredient(item);
       }}
     >
-      {counter > 0 && <Counter count={counter} size="default" />}
-      <img src={item.image} alt={item.name} />
-      <div className={`${styles.price} mt-2 mb-2`}>
-        <p className="text text_type_digits-default mr-2">{item.price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
-      <h4 className={`${styles.name} text text_type_main-default`}>
-        {item.name}
-      </h4>
+      <Link
+        className={`${styles.card}`}
+        to={{
+          pathname: `/ingredients/${item._id}`,
+          state: { background: location },
+        }}
+      >
+        {counter > 0 && <Counter count={counter} size="default" />}
+        <img src={item.image} alt={item.name} />
+        <div className={`${styles.price} mt-2 mb-2`}>
+          <p className="text text_type_digits-default mr-2">{item.price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <h4 className={`${styles.name} text text_type_main-default`}>
+          {item.name}
+        </h4>
+      </Link>
     </li>
   );
 };

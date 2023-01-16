@@ -21,20 +21,17 @@
 .list__item {
   display: flex;
   column-gap: 8px;
+  text-decoration: none;
 }
 .list__item:first-child {
   padding-left: 0;
 }
 
+.activeList__item {
+  color: #f2f2f3;
+}
+
 .profile {
   composes: list__item;
   justify-self: end;
-}
-
-.link {
-  text-decoration: none;
-}
-.link :hover {
-  cursor: pointer;
-  opacity: 0.8;
 }
