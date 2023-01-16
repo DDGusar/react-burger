@@ -10,11 +10,12 @@ import {
 import { useForm } from "../../utils/utils";
 import { getUser, updateUser, exit } from "../../services/actions/user";
 import { deleteCookie } from "../../utils/cookie";
+import * as selectors from "../../services/selectors";
 
 export const Profile = () => {
-  const user = useSelector((store) => store.user.user);
-  const updateFailed = useSelector((store) => store.user.updateFailed);
-  const expiredToken = useSelector((store) => store.user.expiredToken);
+  const user = useSelector(selectors.user);
+  const updateFailed = useSelector(selectors.updateFailed);
+  const expiredToken = useSelector(selectors.expiredToken);
   const dispatch = useDispatch();
   const { values, onChange, setValues } = useForm({
     name: user.name,

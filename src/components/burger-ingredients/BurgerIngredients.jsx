@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { setCurrentTab } from "../../services/actions/ingredientsList";
 import { BurgerIngredient } from "../burger-ingredient/BurgerIngredient";
+import * as selectors from "../../services/selectors";
 
 const BurgerIngredients = ({ openModalIngredient }) => {
-  const ingredients = useSelector((store) => store.ingredientsList.ingredients);
-  const currentTab = useSelector((store) => store.ingredientsList.currentTab);
+  const ingredients = useSelector(selectors.ingredients);
+  const currentTab = useSelector(selectors.currentTab);
 
   const dispatch = useDispatch();
   const [bun, inViewBun] = useInView({

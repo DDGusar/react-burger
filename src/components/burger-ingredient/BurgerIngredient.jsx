@@ -10,12 +10,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from "react-router-dom";
+import * as selectors from "../../services/selectors";
 
 export const BurgerIngredient = ({ item, openModalIngredient }) => {
   const ingredients = useSelector(
     (store) => store.currentIngredients.currentIngredients
   );
-  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const bun = useSelector(selectors.currentBun);
   const location = useLocation();
   const [counter, setCounter] = useState(0);
   const [{ opacity }, dragRef] = useDrag({

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "../../utils/utils";
 import { forgotPasswordUser } from "../../services/actions/user";
+import * as selectors from "../../services/selectors";
 export const ForgotPassword = () => {
   const { values, onChange, setValues } = useForm({
     email: "",
@@ -15,7 +16,7 @@ export const ForgotPassword = () => {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector(selectors.user);
   const forgotSuccess = useSelector(
     (store) => store.user.forgotPasswordSuccess
   );

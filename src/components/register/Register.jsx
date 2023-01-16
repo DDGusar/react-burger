@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "../../utils/utils";
 import { registerUser } from "../../services/actions/user";
+import * as selectors from "../../services/selectors";
 export const Register = () => {
   const { values, onChange, setValues } = useForm({
     name: "",
@@ -16,7 +17,7 @@ export const Register = () => {
     password: "",
   });
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector(selectors.user);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(values.email, values.password, values.name));

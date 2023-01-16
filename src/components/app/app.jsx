@@ -23,26 +23,27 @@ import { Modal } from "../modal/modal";
 import { getIngredients } from "../../services/actions/ingredientsList";
 import { getOrder } from "../../services/actions/order";
 import { closeModal, openModal } from "../../services/actions/modals";
+import * as selectors from "../../services/selectors";
 
 const App = () => {
-  const user = useSelector((store) => store.user.user);
+  const user = useSelector(selectors.user);
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
   const background = location.state && location.state.background;
   const authToken = getCookie("authToken");
   const refreshToken = getCookie("refreshToken");
-  const userFailed = useSelector((store) => store.user.userFailed);
-  const expiredToken = useSelector((store) => store.user.expiredToken);
-  const tokenFailed = useSelector((store) => store.user.tokenFailed);
+  const userFailed = useSelector(selectors.userFailed);
+  const expiredToken = useSelector(selectors.expiredToken);
+  const tokenFailed = useSelector(selectors.tokenFailed);
 
   const currentIngredients = useSelector(
     (store) => store.currentIngredients.currentIngredients
   );
-  const bun = useSelector((store) => store.currentIngredients.currentBun);
+  const bun = useSelector(selectors.currentBun);
 
-  const order = useSelector((store) => store.order.order);
-  const orderRequest = useSelector((store) => store.order.orderRequest);
+  const order = useSelector(selectors.order);
+  const orderRequest = useSelector(selectors.orderRequest);
 
   const [openOrderDetails, setOpenOrderDetails] = useState(false);
 

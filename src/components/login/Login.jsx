@@ -9,14 +9,15 @@ import { Link, Redirect, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser } from "../../services/actions/user";
 import { useForm } from "../../utils/utils";
+import * as selectors from "../../services/selectors";
 export const Login = () => {
   const { values, onChange, setValues } = useForm({
     email: "",
     password: "",
   });
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user.user);
-  const exitRequest = useSelector((store) => store.user.exitRequest);
+  const user = useSelector(selectors.user);
+  const exitRequest = useSelector(selectors.exitRequest);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(authUser(values.email, values.password));

@@ -9,13 +9,14 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useForm } from "../../utils/utils";
 import { resetPasswordUser } from "../../services/actions/user";
+import * as selectors from "../../services/selectors";
 export const ResetPassword = () => {
   const { values, onChange, setValues } = useForm({
     password: "",
     token: "",
   });
   const dispatch = useDispatch();
-  const resetSuccess = useSelector((store) => store.user.resetPasswordSuccess);
+  const resetSuccess = useSelector(selectors.resetPasswordSuccess);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPasswordUser(values.password, values.token));

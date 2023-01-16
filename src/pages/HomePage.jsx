@@ -5,9 +5,10 @@ import { useSelector } from "react-redux";
 import BurgerIngredients from "../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../components/burger-constructor/BurgerConstructor";
 import PropTypes from "prop-types";
+import * as selectors from "../services/selectors";
 
 export function HomePage({ openModalIngredient, openModalOrder }) {
-  const ingredients = useSelector((store) => store.ingredientsList.ingredients);
+  const ingredients = useSelector(selectors.ingredients);
 
   const ingredientsRequest = useSelector(
     (store) => store.ingredientsList.ingredientsRequest
