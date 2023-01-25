@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import styles from "./profile.module.css";
 import {
   Input,
@@ -8,8 +7,8 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useForm } from "../../utils/utils";
-import { getUser, updateUser, exit } from "../../services/actions/user";
-import { deleteCookie } from "../../utils/cookie";
+import { getUser, updateUser } from "../../services/actions/user";
+import { ProfileNavigation } from "../profile-navigation/ProfileNavigation";
 import * as selectors from "../../services/selectors";
 
 export const Profile = () => {
@@ -36,12 +35,6 @@ export const Profile = () => {
       email: user.email,
       password: "",
     });
-  };
-
-  const handleExit = (e) => {
-    dispatch(exit());
-    deleteCookie("authToken");
-    deleteCookie("refreshToken");
   };
 
   const nameRef = useRef(null);
@@ -72,36 +65,8 @@ export const Profile = () => {
 
   return (
     <section className={styles.content}>
-      <nav className={`${styles.navigation}`}>
-        <NavLink
-          exact
-          to="/profile"
-          activeClassName={`${styles.activeLink}`}
-          className={`${styles.link} text text_type_main-medium text_color_inactive`}
-        >
-          Профиль
-        </NavLink>
-        <NavLink
-          exact
-          to="/profile/orders"
-          activeClassName={`${styles.activeLink}`}
-          className={`${styles.link} text text_type_main-medium text_color_inactive`}
-        >
-          История заказов
-        </NavLink>
-        <NavLink
-          exact
-          to={{ pathname: "/login", state: { from: true } }}
-          onClick={handleExit}
-          activeClassName={`${styles.activeLink}`}
-          className={`${styles.link} text text_type_main-medium text_color_inactive`}
-        >
-          Выход
-        </NavLink>
-        <p className={`${styles.caption} text text_type_main-default mt-20`}>
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
-      </nav>
+      <ProfileNavigation />
+
       <form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
         <Input
           type={"text"}

@@ -1,7 +1,8 @@
 import { getCookie } from "./cookie";
 
-const apiConfig = {
+export const apiConfig = {
   baseURL: "https://norma.nomoreparties.space/api/",
+  wsBaseUrl: "wss://norma.nomoreparties.space",
   headers: {
     "Content-type": "application/json",
   },
@@ -23,7 +24,10 @@ export const dataRequest = async () => {
 export const orderRequest = async (orderData) => {
   return request(`${apiConfig.baseURL}orders`, {
     method: "POST",
-    headers: apiConfig.headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("authToken"),
+    },
     body: JSON.stringify({
       ingredients: orderData,
     }),

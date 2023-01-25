@@ -24,7 +24,7 @@ export const Login = () => {
   };
   const location = useLocation();
   if (user && !exitRequest) {
-    return <Redirect to={location?.state?.from || "/"} />;
+    return <Redirect to={location.state?.from || "/"} />;
   }
   return (
     <section className={styles.content}>

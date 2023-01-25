@@ -1,0 +1,19 @@
+.content {
+  max-width: 600px;
+}
+.orders {
+  max-height: calc(100vh - 160px - 40px);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.orders::-webkit-scrollbar {
+  width: 8px;
+}
+
+.orders::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.orders::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
