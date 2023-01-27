@@ -3,7 +3,7 @@
 }
 .ordersList {
   display: flex;
-  gap: 60px;
+  gap: 67px;
 }
 .readyOrders {
   color: #00cccc;

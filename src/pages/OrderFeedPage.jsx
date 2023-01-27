@@ -22,7 +22,6 @@ export function OrderFeedPage({ openModalOrderInfo }) {
       <ListOrders
         openModalOrderInfo={openModalOrderInfo}
         header="Лента заказов"
-        type="all"
       />
       <OrdersBoard />
     </>

@@ -1,15 +1,22 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import styles from "./listOrders.module.css";
 import PropTypes from "prop-types";
 import { CardOrder } from "../card-order/CardOrder";
 import * as selectors from "../../services/selectors";
 
-export const ListOrders = ({ openModalOrderInfo, header, type }) => {
-  const selector = type === "user" ? selectors.userOrders : selectors.allOrders;
+export const ListOrders = ({ openModalOrderInfo, header }) => {
+  const location = useLocation();
+  const selector = location.pathname.includes("profile")
+    ? selectors.userOrders
+    : selectors.allOrders;
+
   const orders = useSelector(selector);
 
-  const counterVisibility = type === "user" ? true : false;
+  const counterVisibility = location.pathname.includes("profile")
+    ? true
+    : false;
   return (
     <section className={`${styles.content}`}>
       {header && (
@@ -36,5 +43,4 @@ export const ListOrders = ({ openModalOrderInfo, header, type }) => {
 ListOrders.propTypes = {
   openModalOrderInfo: PropTypes.func.isRequired,
   header: PropTypes.string,
-  type: PropTypes.string.isRequired,
 };

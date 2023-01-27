@@ -8,8 +8,9 @@
 }
 .main {
   display: flex;
-  margin: 0 40px;
-  gap: 40px;
+  justify-content: center;
+  margin: 0 20px;
+  gap: 56px;
 }
 .content {
   display: flex;

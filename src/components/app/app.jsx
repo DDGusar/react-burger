@@ -24,7 +24,7 @@ import { IngredientDetails } from "../ingredient-details/IngredientDetails";
 import { Modal } from "../modal/modal";
 import { getIngredients } from "../../services/actions/ingredientsList";
 import { getOrder } from "../../services/actions/order";
-import { closeModal, openModal } from "../../services/actions/modals";
+import { closeModal } from "../../services/actions/modals";
 import * as selectors from "../../services/selectors";
 
 const App = () => {
@@ -52,7 +52,6 @@ const App = () => {
   const closeModals = () => {
     setOpenOrderDetails(false);
     dispatch(closeModal());
-    // history.replace("/");
     history.goBack();
   };
   const openModalIngredient = (ingredient) => {
@@ -112,7 +111,9 @@ const App = () => {
             <OrderFeedPage openModalOrderInfo={openModalOrderInfo} />
           </Route>
           <Route exact path="/feed/:id">
-            <OrderInfoPage />
+            <div className="mt-30">
+              <OrderInfoPage />
+            </div>
           </Route>
           <ProtectedRoute exact path="/profile">
             <ProfilePage />
@@ -121,9 +122,9 @@ const App = () => {
             <ProfileOrdersPage openModalOrderInfo={openModalOrderInfo} />
           </ProtectedRoute>
           <Route exact path="/profile/orders/:id">
-            {/* <div className="mt-30"> */}
-            <OrderInfoPage />
-            {/* </div> */}
+            <div className="mt-30">
+              <OrderInfoPage />
+            </div>
           </Route>
           <Route exact path="/ingredients/:id">
             <div className={styles.content}>

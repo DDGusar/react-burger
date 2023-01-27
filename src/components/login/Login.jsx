@@ -29,7 +29,7 @@ export const Login = () => {
   return (
     <section className={styles.content}>
       <h1 className={`text text_type_main-medium mb-6`}>Вход</h1>
-      <form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
+      <form className={`${styles.form} mb-15`} onSubmit={handleSubmit}>
         <Input
           type={"email"}
           placeholder={"E-mail"}
@@ -54,7 +54,7 @@ export const Login = () => {
           Войти
         </Button>
       </form>
-      <p className={`text text_type_main-default text_color_inactive`}>
+      <p className={`text text_type_main-default text_color_inactive pl-10`}>
         Вы — новый пользователь?
         <Link to="/register">
           <Button
@@ -67,7 +67,7 @@ export const Login = () => {
           </Button>
         </Link>
       </p>
-      <p className={`text text_type_main-default text_color_inactive`}>
+      <p className={`text text_type_main-default text_color_inactive pl-10`}>
         Забыли пароль?{" "}
         <Link to="/forgot-password">
           <Button

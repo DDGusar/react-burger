@@ -14,7 +14,7 @@ const AppHeader = () => {
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav>
         <ul className={`${styles.list} pr-5 pl-5`}>
-          <li className={` pr-5 pl-5 pt-4 pb-4`}>
+          <li className={` pr-5 pt-4 pb-4`}>
             <NavLink
               exact
               to="/"

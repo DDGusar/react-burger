@@ -33,7 +33,7 @@ export const ResetPassword = () => {
       <h1 className={`text text_type_main-medium mb-6`}>
         Восстановление пароля
       </h1>
-      <form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
+      <form className={`${styles.form} mb-15`} onSubmit={handleSubmit}>
         <PasswordInput
           placeholder="Введите новый пароль"
           onChange={onChange}
@@ -60,7 +60,7 @@ export const ResetPassword = () => {
           Сохранить
         </Button>
       </form>{" "}
-      <p className={`text text_type_main-default text_color_inactive`}>
+      <p className={`text text_type_main-default text_color_inactive pl-10`}>
         Вспомнили пароль?
         <Link to="/login">
           <Button

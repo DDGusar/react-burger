@@ -78,7 +78,6 @@ export const forgotPasswordUser = (email) => {
     });
     forgotPasswordRequest(email)
       .then((res) => {
-        console.log(res);
         dispatch({
           type: FORGOT_PASSWORD_SUCCESS,
           forgotPasswordSuccess: res.success,

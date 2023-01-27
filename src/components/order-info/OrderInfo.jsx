@@ -25,8 +25,6 @@ export const OrderInfo = () => {
   const allOrders = useSelector(selectors.allOrders);
   const userOrders = useSelector(selectors.userOrders);
 
-  console.log(id);
-
   useEffect(() => {
     dispatch(wsConnectionOpenUserOrders());
     dispatch(wsConnectionOpenAllOrders());
@@ -44,11 +42,8 @@ export const OrderInfo = () => {
     orders = userOrders;
   }
 
-  //   console.log(orders);
   const ingredients = useSelector(selectors.ingredients);
   const currentOrder = orders?.find((order) => order._id === id);
-  //   console.log(currentOrder);
-  //   console.log(ingredients);
   if (!currentOrder) return null;
   const { name, number, createdAt, ingredients: ingredientsId } = currentOrder;
   const orderedIngredients = ingredientsId

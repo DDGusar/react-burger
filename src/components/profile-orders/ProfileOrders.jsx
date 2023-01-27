@@ -21,7 +21,7 @@ export const ProfileOrders = ({ openModalOrderInfo }) => {
   return (
     <section className={styles.content}>
       <ProfileNavigation />
-      <ListOrders openModalOrderInfo={openModalOrderInfo} type="user" />
+      <ListOrders openModalOrderInfo={openModalOrderInfo} />
     </section>
   );
 };

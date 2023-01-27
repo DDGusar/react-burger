@@ -5,6 +5,7 @@
 .order {
   background: #1c1c21;
   border-radius: 40px;
+  margin-bottom: 16px;
 }
 .serviceInfo {
   display: flex;
