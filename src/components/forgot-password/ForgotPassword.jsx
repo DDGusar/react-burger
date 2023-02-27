@@ -42,7 +42,7 @@ export const ForgotPassword = () => {
       <h1 className={`text text_type_main-medium mb-6`}>
         Восстановление пароля
       </h1>
-      <form className={`${styles.form} mb-20`} onSubmit={handleSubmit}>
+      <form className={`${styles.form} mb-15`} onSubmit={handleSubmit}>
         <Input
           type={"email"}
           placeholder={"Укажите е-mail"}
@@ -62,7 +62,7 @@ export const ForgotPassword = () => {
           Восстановить
         </Button>
       </form>
-      <p className={`text text_type_main-default text_color_inactive`}>
+      <p className={`text text_type_main-default text_color_inactive pl-10`}>
         Вспомнили пароль?
         <Link to="/login">
           <Button

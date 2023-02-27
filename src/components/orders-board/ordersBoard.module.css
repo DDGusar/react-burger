@@ -1,0 +1,30 @@
+.content {
+  width: 100%;
+}
+.ordersList {
+  display: flex;
+  gap: 67px;
+}
+.readyOrders {
+  color: #00cccc;
+}
+.title {
+}
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  height: 152px;
+  grid-template-columns: repeat(auto-fit, 136px);
+  grid-template-rows: repeat(auto-fit, 24px);
+  grid-auto-flow: column;
+  row-gap: 8px;
+  align-items: start;
+}
+.item {
+}
+.inWorkOrders {
+}
+.count {
+}

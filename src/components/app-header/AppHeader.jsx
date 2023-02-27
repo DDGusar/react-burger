@@ -14,7 +14,7 @@ const AppHeader = () => {
     <header className={`${styles.header} pt-4 pb-4`}>
       <nav>
         <ul className={`${styles.list} pr-5 pl-5`}>
-          <li className={` pr-5 pl-5 pt-4 pb-4`}>
+          <li className={` pr-5 pt-4 pb-4`}>
             <NavLink
               exact
               to="/"
@@ -29,12 +29,12 @@ const AppHeader = () => {
           </li>
           <li className={` pr-5 pl-5 pt-4 pb-4`}>
             <NavLink
-              to="/orders"
+              to="/feed"
               className={`${styles.list__item}  text_color_inactive`}
               activeClassName={`${styles.activeList__item}`}
             >
               <ListIcon
-                type={location.pathname === "/orders" ? "primary" : "secondary"}
+                type={location.pathname === "/feed" ? "primary" : "secondary"}
               />
               <p className={`text text_type_main-default`}>Лента заказов</p>
             </NavLink>

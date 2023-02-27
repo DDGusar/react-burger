@@ -6,6 +6,7 @@ export const IngredientDetails = () => {
   const { id } = useParams();
   const ingredients = useSelector(selectors.ingredients);
   const ingredient = ingredients.find((el) => el._id === id);
+
   return (
     ingredient && (
       <div className={`${styles.container} pb-15 ml-15 mr-15`}>
