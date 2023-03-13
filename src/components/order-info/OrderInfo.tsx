@@ -26,6 +26,7 @@ export const OrderInfo: FC = () => {
 
   const allOrders = useSelector(selectors.allOrders);
   const userOrders = useSelector(selectors.userOrders);
+  const currentIngredients = useSelector(selectors.ingredients);
 
   useEffect(() => {
     dispatch(wsConnectionOpenUserOrders());
@@ -44,7 +45,6 @@ export const OrderInfo: FC = () => {
     currentOrder = userOrders?.find((order) => order._id === id);
   }
 
-  const currentIngredients: TIngredient[] = useSelector(selectors.ingredients);
   if (!currentOrder) return null;
   const { name, number, createdAt, ingredients } = currentOrder;
   const orderedIngredients = ingredients
@@ -52,7 +52,7 @@ export const OrderInfo: FC = () => {
     .map((item) => currentIngredients.filter((el) => el._id === item)[0]);
   const uniqueIngredients = [...new Set(orderedIngredients)];
 
-  const sumTotal: number = orderedIngredients.reduce(
+  const sumTotal = orderedIngredients.reduce(
     (acc, item) => acc + item?.price,
     0
   );

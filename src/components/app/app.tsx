@@ -29,11 +29,7 @@ import { closeModal } from "../../services/actions/modals";
 import * as selectors from "../../services/selectors";
 import { openModalIngredient } from "../../services/actions/modals";
 
-import {
-  TConstructorIngredient,
-  TIngredient,
-  TLocation,
-} from "../../services/types/data";
+import { TIngredient, TLocation } from "../../services/types/data";
 
 const App: FC = () => {
   const user = useSelector(selectors.user);
@@ -47,9 +43,7 @@ const App: FC = () => {
   const expiredToken = useSelector(selectors.expiredToken);
   const tokenFailed = useSelector(selectors.tokenFailed);
 
-  const currentIngredients: TConstructorIngredient[] = useSelector(
-    selectors.currentIngredients
-  );
+  const currentIngredients = useSelector(selectors.currentIngredients);
   const bun = useSelector(selectors.currentBun);
 
   const order = useSelector(selectors.order);
