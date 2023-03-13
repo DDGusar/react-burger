@@ -1,6 +1,5 @@
 import { dataRequest } from "../../utils/api";
-import { ingredients } from "../selectors";
-import { AppDispatch, AppThunk } from "../types";
+import { AppDispatch } from "../types";
 import { TIngredient } from "../types/data";
 
 export const GET_INGREDIENTS_REQUEST: "GET_INGREDIENTS_REQUEST" =
@@ -33,7 +32,7 @@ export type TListIngredientsActions =
   | ISetCurrentBun;
 
 export const getIngredients = () => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });

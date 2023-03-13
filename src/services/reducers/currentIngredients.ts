@@ -9,13 +9,13 @@ import {
 import { TIngredient, TConstructorIngredient } from "../types/data";
 
 type TInitialState = {
-  currentIngredients: Array<TConstructorIngredient>;
+  currentIngredients: TConstructorIngredient[];
   currentBun: TIngredient | null;
   totalPrice: number;
   bunPrice: number;
 };
 
-const initialState = {
+const initialState: TInitialState = {
   currentIngredients: [],
   currentBun: null,
   totalPrice: 0,
@@ -46,7 +46,7 @@ export const currentIngredientsReducer = (
       return {
         ...state,
         currentIngredients: [...state.currentIngredients].filter(
-          (el: { uid: string; data: TIngredient }) => el.uid !== action.item.uid
+          (el) => el.uid !== action.item.uid
         ),
         totalPrice: state.totalPrice - action.item.data.price,
       };

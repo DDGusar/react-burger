@@ -14,7 +14,7 @@ import {
 } from "../../services/actions/currentIngredients";
 import { BurgerConstructorElement } from "../burger-constructor-element/BurgerConstructorElement";
 import * as selectors from "../../services/selectors";
-import { TIngredient, TConstructorIngredient } from "../../services/types/data";
+import { TIngredient } from "../../services/types/data";
 
 type TBurgerConstructorProps = {
   openModalOrder: () => void;
@@ -28,7 +28,7 @@ const BurgerConstructor: FC<TBurgerConstructorProps> = ({ openModalOrder }) => {
   const totalPrice = useSelector(selectors.totalPrice);
 
   const otherIngredients = useMemo(
-    () => ingredients.filter((item: TIngredient) => item.type !== "bun"),
+    () => ingredients.filter((item) => item.data.type !== "bun"),
     [ingredients]
   );
 
@@ -94,15 +94,13 @@ const BurgerConstructor: FC<TBurgerConstructorProps> = ({ openModalOrder }) => {
 
           {useMemo(
             () =>
-              otherIngredients.map(
-                (item: TConstructorIngredient, index: number) => (
-                  <BurgerConstructorElement
-                    key={item.uid}
-                    item={item}
-                    index={index}
-                  />
-                )
-              ),
+              otherIngredients.map((item, index) => (
+                <BurgerConstructorElement
+                  key={item.uid}
+                  item={item}
+                  index={index}
+                />
+              )),
             [otherIngredients]
           )}
         </ul>

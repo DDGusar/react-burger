@@ -1,44 +1,51 @@
-export const getUser = (store: any) => store.user;
-export const getCurrentIngredients = (store: any) => store.currentIngredients;
-export const getOrder = (store: any) => store.order;
-export const getIngredientsList = (store: any) => store.ingredientsList;
-export const getWsAllOrders = (store: any) => store.wsAllOrders;
-export const getWsUserOrders = (store: any) => store.wsUserOrders;
+import { RootState } from "./types";
 
-export const user = (store: any) => getUser(store).user;
-export const userFailed = (store: any) => getUser(store).userFailed;
-export const expiredToken = (store: any) => getUser(store).expiredToken;
-export const updateFailed = (store: any) => getUser(store).updateFailed;
-export const tokenFailed = (store: any) => getUser(store).tokenFailed;
-export const exitRequest = (store: any) => getUser(store).exitRequest;
-export const resetPasswordSuccess = (store: any) =>
+export const getUser = (store: RootState) => store.user;
+export const getCurrentIngredients = (store: RootState) =>
+  store.currentIngredients;
+export const getOrder = (store: RootState) => store.order;
+export const getIngredientsList = (store: RootState) => store.ingredientsList;
+export const getWsAllOrders = (store: RootState) => store.wsAllOrders;
+export const getWsUserOrders = (store: RootState) => store.wsUserOrders;
+
+export const user = (store: RootState) => getUser(store).user;
+export const userFailed = (store: RootState) => getUser(store).userFailed;
+export const expiredToken = (store: RootState) => getUser(store).expiredToken;
+export const updateFailed = (store: RootState) => getUser(store).updateFailed;
+export const tokenFailed = (store: RootState) => getUser(store).tokenFailed;
+export const exitRequest = (store: RootState) => getUser(store).exitRequest;
+export const resetPasswordSuccess = (store: RootState) =>
   getUser(store).resetPasswordSuccess;
-export const forgotPasswordSuccess = (store: any) =>
+export const forgotPasswordSuccess = (store: RootState) =>
   getUser(store).forgotPasswordSuccess;
 
-export const currentBun = (store: any) =>
+export const currentBun = (store: RootState) =>
   getCurrentIngredients(store).currentBun;
-export const currentIngredients = (store: any) =>
+export const currentIngredients = (store: RootState) =>
   getCurrentIngredients(store).currentIngredients;
-export const totalPrice = (store: any) =>
+export const totalPrice = (store: RootState) =>
   getCurrentIngredients(store).totalPrice;
 
-export const order = (store: any) => getOrder(store).order;
-export const orderRequest = (store: any) => getOrder(store).orderRequest;
+export const order = (store: RootState) => getOrder(store).order;
+export const orderRequest = (store: RootState) => getOrder(store).orderRequest;
 
-export const ingredients = (store: any) =>
+export const ingredients = (store: RootState) =>
   getIngredientsList(store).ingredients;
-export const currentTab = (store: any) => getIngredientsList(store).currentTab;
-export const ingredientsRequest = (store: any) =>
+export const currentTab = (store: RootState) =>
+  getIngredientsList(store).currentTab;
+export const ingredientsRequest = (store: RootState) =>
   getIngredientsList(store).ingredientsRequest;
-export const ingredientsFailed = (store: any) =>
+export const ingredientsFailed = (store: RootState) =>
   getIngredientsList(store).ingredientsFailed;
 
-export const allOrders = (store: any) => getWsAllOrders(store).orders;
-export const allTotal = (store: any) => getWsAllOrders(store).total;
-export const allTotalToday = (store: any) => getWsAllOrders(store).totalToday;
-export const wsConnectedAll = (store: any) => getWsAllOrders(store).wsConnected;
+export const allOrders = (store: RootState) => getWsAllOrders(store).orders;
+export const allTotal = (store: RootState) => getWsAllOrders(store).total;
+export const allTotalToday = (store: RootState) =>
+  getWsAllOrders(store).totalToday;
+export const wsConnectedAll = (store: RootState) =>
+  getWsAllOrders(store).wsConnected;
 
-export const userOrders = (store: any) => getWsUserOrders(store).userOrders;
-export const wsConnectedUser = (store: any) =>
+export const userOrders = (store: RootState) =>
+  getWsUserOrders(store).userOrders;
+export const wsConnectedUser = (store: RootState) =>
   getWsUserOrders(store).wsUserConnected;

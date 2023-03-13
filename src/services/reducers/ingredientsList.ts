@@ -8,12 +8,12 @@ import {
 import { TIngredient } from "../types/data";
 
 type TInitialState = {
-  ingredients: TIngredient[],
-  ingredientsRequest: boolean,
-  ingredientsFailed: boolean,
-  currentTab: string,
+  ingredients: TIngredient[];
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  currentTab: string;
 };
-const initialState = {
+const initialState: TInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,

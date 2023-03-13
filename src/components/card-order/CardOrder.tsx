@@ -28,11 +28,9 @@ export const CardOrder: FC<TCardOrderProps> = ({
   let isVisibleCounter = false;
   let deltaCounter = 0;
 
-  const filterIngredients: Array<TIngredient> = useMemo(() => {
+  const filterIngredients = useMemo(() => {
     return orderIngredients.map((ingredient) => {
-      return allIngredients.find(
-        (item: TIngredient) => ingredient === item._id
-      );
+      return allIngredients.filter((item) => ingredient === item._id)[0];
     });
   }, [orderIngredients, allIngredients]);
 

@@ -47,7 +47,9 @@ const App: FC = () => {
   const expiredToken = useSelector(selectors.expiredToken);
   const tokenFailed = useSelector(selectors.tokenFailed);
 
-  const currentIngredients = useSelector(selectors.currentIngredients);
+  const currentIngredients: TConstructorIngredient[] = useSelector(
+    selectors.currentIngredients
+  );
   const bun = useSelector(selectors.currentBun);
 
   const order = useSelector(selectors.order);
@@ -69,13 +71,11 @@ const App: FC = () => {
   };
 
   const openModalOrder = () => {
-    if (user) {
+    if (user && bun) {
       dispatch(
         getOrder([
           bun._id,
-          ...currentIngredients.map(
-            (item: TConstructorIngredient) => item.data._id
-          ),
+          ...currentIngredients.map((item) => item.data._id),
           bun._id,
         ])
       );
@@ -177,7 +177,7 @@ const App: FC = () => {
               {orderRequest && (
                 <p className={`text text_type_main-medium`}>Загрузка...</p>
               )}
-              {!orderRequest && <OrderDetails orderNumber={order} />}
+              {!orderRequest && order && <OrderDetails orderNumber={order} />}
             </>
           </Modal>
         )}

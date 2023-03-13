@@ -3,12 +3,11 @@ import { FC } from "react";
 import { useSelector } from "../../services/hooks/useSelector";
 import { useParams } from "react-router-dom";
 import * as selectors from "../../services/selectors";
-import { TIngredient } from "../../services/types/data";
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams<{ id: string }>();
   const ingredients = useSelector(selectors.ingredients);
-  const ingredient = ingredients.find((el: TIngredient) => el._id === id);
+  const ingredient = ingredients.filter((el) => el._id === id)[0];
 
   return (
     ingredient && (

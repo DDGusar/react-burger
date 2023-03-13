@@ -17,7 +17,7 @@ import {
 } from "../../services/actions/wsUserOrders";
 import { statusName } from "../../utils/statusOrder";
 import * as selectors from "../../services/selectors";
-import { TIngredient, TLocation, TOrder } from "../../services/types/data";
+import { TIngredient, TLocation } from "../../services/types/data";
 
 export const OrderInfo: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,23 +39,21 @@ export const OrderInfo: FC = () => {
   let currentOrder;
 
   if (location.pathname.includes("feed")) {
-    currentOrder = allOrders?.find((order: TOrder) => order._id === id);
+    currentOrder = allOrders?.find((order) => order._id === id);
   } else {
-    currentOrder = userOrders?.find((order: TOrder) => order._id === id);
+    currentOrder = userOrders?.find((order) => order._id === id);
   }
 
   const currentIngredients: TIngredient[] = useSelector(selectors.ingredients);
   if (!currentOrder) return null;
   const { name, number, createdAt, ingredients } = currentOrder;
-  const orderedIngredients: TIngredient[] = ingredients
-    .filter((ingredient: string) => ingredient != null)
-    .map((item: string) =>
-      currentIngredients.find((el: TIngredient) => el._id === item)
-    );
+  const orderedIngredients = ingredients
+    .filter((ingredient) => ingredient != null)
+    .map((item) => currentIngredients.filter((el) => el._id === item)[0]);
   const uniqueIngredients = [...new Set(orderedIngredients)];
 
   const sumTotal: number = orderedIngredients.reduce(
-    (acc: number, item: TIngredient) => acc + item?.price,
+    (acc, item) => acc + item?.price,
     0
   );
 
@@ -95,9 +93,8 @@ export const OrderInfo: FC = () => {
                 <div className={`${styles.quantity} mr-6`}>
                   <p className="text text_type_digits-default mr-2">
                     {
-                      orderedIngredients.filter(
-                        (el: TIngredient) => el?._id === item?._id
-                      ).length
+                      orderedIngredients.filter((el) => el?._id === item?._id)
+                        .length
                     }
                   </p>
                   <p className="text text_type_digits-default mr-2">

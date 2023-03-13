@@ -66,7 +66,7 @@ type TInitialState = {
   expiredToken: boolean;
 };
 
-const initialState = {
+const initialState: TInitialState = {
   user: null,
   registerRequest: false,
   registerFailed: false,

@@ -1,6 +1,7 @@
 import { orderRequest } from "../../utils/api";
 import { cleanCart } from "./currentIngredients";
 import { TIngredientsIdArray } from "../types/data";
+import { AppDispatch } from "../types";
 
 export const GET_ORDER_REQUEST: "GET_ORDER_REQUEST" = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS: "GET_ORDER_SUCCESS" = "GET_ORDER_SUCCESS";
@@ -23,7 +24,7 @@ export type TOrderActions =
   | IGetOrderFailed;
 
 export const getOrder = (ingredientsIdArray: TIngredientsIdArray) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });

@@ -6,7 +6,7 @@ import styles from "./burgerIngredient.module.css";
 
 import { useEffect, useState, FC } from "react";
 import { useSelector } from "../../services/hooks/useSelector";
-import { TConstructorIngredient, TIngredient } from "../../services/types/data";
+import { TIngredient } from "../../services/types/data";
 import { useDrag } from "react-dnd";
 import { useLocation, Link } from "react-router-dom";
 import * as selectors from "../../services/selectors";
@@ -38,9 +38,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = ({
     } else {
       ingredients.length > 0 &&
         setCounter(
-          ingredients.filter(
-            (element: TConstructorIngredient) => element.data._id === item._id
-          ).length
+          ingredients.filter((element) => element.data._id === item._id).length
         );
     }
   }, [bun, ingredients, item]);

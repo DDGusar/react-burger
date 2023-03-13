@@ -10,6 +10,7 @@ import {
   updateUserData,
 } from "../../utils/api";
 import { setCookie } from "../../utils/cookie";
+import { AppDispatch } from "../types";
 
 export const REGISTRATION_REQUEST: "REGISTRATION_REQUEST" =
   "REGISTRATION_REQUEST";
@@ -162,7 +163,7 @@ export type TUserActions =
   | IUpdateUserFailed;
 
 export const registerUser = (email: string, password: string, name: string) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
@@ -191,7 +192,7 @@ export const registerUser = (email: string, password: string, name: string) => {
 };
 
 export const forgotPasswordUser = (email: string) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
     });
@@ -212,7 +213,7 @@ export const forgotPasswordUser = (email: string) => {
 };
 
 export const resetPasswordUser = (password: string, token: string) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
@@ -233,7 +234,7 @@ export const resetPasswordUser = (password: string, token: string) => {
 };
 
 export const authUser = (email: string, password: string) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: AUTH_REQUEST,
     });
@@ -262,7 +263,7 @@ export const authUser = (email: string, password: string) => {
 };
 
 export const updateToken = () => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_TOKEN_REQUEST,
     });
@@ -291,7 +292,7 @@ export const updateToken = () => {
 };
 
 export const exit = () => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: EXIT_REQUEST,
     });
@@ -312,7 +313,7 @@ export const exit = () => {
 };
 
 export const getUser = () => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -333,7 +334,7 @@ export const getUser = () => {
 };
 
 export const updateUser = (name: string, email: string, password: string) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,
     });

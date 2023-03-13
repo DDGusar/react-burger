@@ -1,4 +1,5 @@
+import { FC } from "react";
 import { ForgotPassword } from "../components/forgot-password/ForgotPassword";
-export function ForgotPasswordPage() {
+export const ForgotPasswordPage: FC = () => {
   return <ForgotPassword />;
-}
+};

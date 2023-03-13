@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import styles from "./listOrders.module.css";
 import { CardOrder } from "../card-order/CardOrder";
 import * as selectors from "../../services/selectors";
-import { TOrder } from "../../services/types/data";
 
 type TListOrdersProps = {
   openModalOrderInfo: () => void;
@@ -33,7 +32,7 @@ export const ListOrders: FC<TListOrdersProps> = ({
       <div className={`${styles.orders}`}>
         {useMemo(
           () =>
-            orders.map((order: TOrder) => (
+            orders.map((order) => (
               <CardOrder
                 key={order._id}
                 openModalOrderInfo={openModalOrderInfo}

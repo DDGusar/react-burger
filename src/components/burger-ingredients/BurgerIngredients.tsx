@@ -41,15 +41,15 @@ const BurgerIngredients: FC<TBurgerIngredientsProps> = ({
   }, [inViewBun, inViewSauce, inViewMain, dispatch]);
 
   const buns = useMemo(
-    () => ingredients.filter((item: TIngredient) => item.type === "bun"),
+    () => ingredients.filter((item) => item.type === "bun"),
     [ingredients]
   );
   const mains = useMemo(
-    () => ingredients.filter((item: TIngredient) => item.type === "main"),
+    () => ingredients.filter((item) => item.type === "main"),
     [ingredients]
   );
   const sauces = useMemo(
-    () => ingredients.filter((item: TIngredient) => item.type === "sauce"),
+    () => ingredients.filter((item) => item.type === "sauce"),
     [ingredients]
   );
   const tabClick = (value: string) => {
@@ -96,7 +96,7 @@ const BurgerIngredients: FC<TBurgerIngredientsProps> = ({
         <li ref={bun} className="bun">
           <h3 className="text text_type_main-medium mb-6">Булки</h3>
           <ul className={styles.list_ingredients}>
-            {buns.map((item: TIngredient) => (
+            {buns.map((item) => (
               <BurgerIngredient
                 key={item._id}
                 item={item}
@@ -109,7 +109,7 @@ const BurgerIngredients: FC<TBurgerIngredientsProps> = ({
           <h3 className="text text_type_main-medium mt-10 mb-6">Соусы</h3>
 
           <ul className={styles.list_ingredients}>
-            {sauces.map((item: TIngredient) => (
+            {sauces.map((item) => (
               <BurgerIngredient
                 key={item._id}
                 item={item}
@@ -121,7 +121,7 @@ const BurgerIngredients: FC<TBurgerIngredientsProps> = ({
         <li ref={main} className="main">
           <h3 className="text text_type_main-medium mt-10 mb-6">Начинки</h3>
           <ul className={styles.list_ingredients}>
-            {mains.map((item: TIngredient) => (
+            {mains.map((item) => (
               <BurgerIngredient
                 key={item._id}
                 item={item}

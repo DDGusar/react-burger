@@ -19,8 +19,8 @@ export const Profile = () => {
   const dispatch = useDispatch();
 
   const { values, onChange, setValues } = useForm({
-    name: user.name,
-    email: user.email,
+    name: "",
+    email: "",
     password: "",
   });
 
@@ -31,12 +31,13 @@ export const Profile = () => {
 
   const handleReset = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    setValues({
-      ...values,
-      name: user.name,
-      email: user.email,
-      password: "",
-    });
+    user &&
+      setValues({
+        ...values,
+        name: user.name,
+        email: user.email,
+        password: "",
+      });
   };
 
   const nameRef = useRef<HTMLInputElement>(null);
@@ -47,6 +48,15 @@ export const Profile = () => {
   const emailClick = () => {
     setTimeout(() => emailRef.current?.focus(), 0);
   };
+  useEffect(() => {
+    if (user) {
+      setValues({
+        name: user.name,
+        email: user.email,
+        password: "",
+      });
+    }
+  }, [setValues, user]);
 
   useEffect(() => {
     if (updateFailed && !expiredToken) {

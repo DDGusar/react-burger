@@ -2,17 +2,16 @@ import { useMemo, FC } from "react";
 import { useSelector } from "../../services/hooks/useSelector";
 import styles from "./ordersBoard.module.css";
 import * as selectors from "../../services/selectors";
-import { TOrder } from "../../services/types/data";
 
 export const OrdersBoard: FC = () => {
   const allOrders = useSelector(selectors.allOrders);
   const allTotal = useSelector(selectors.allTotal);
   const allTotalToday = useSelector(selectors.allTotalToday);
   const statusDone = allOrders
-    .filter((order: TOrder) => order.status === "done")
+    .filter((order) => order.status === "done")
     .slice(0, 10);
   const statusWait = allOrders
-    .filter((order: TOrder) => order.status !== "done")
+    .filter((order) => order.status !== "done")
     .slice(0, 10);
   return (
     <div className={`${styles.content} pt-25`}>
@@ -24,7 +23,7 @@ export const OrdersBoard: FC = () => {
           <ul className={`${styles.list} ${styles.readyOrders}`}>
             {useMemo(
               () =>
-                statusDone.map((order: TOrder) => (
+                statusDone.map((order) => (
                   <li
                     key={order._id}
                     className={`${styles.item} text text_type_digits-default`}
@@ -43,7 +42,7 @@ export const OrdersBoard: FC = () => {
           <ul className={`${styles.list}`}>
             {useMemo(
               () =>
-                statusWait.map((order: TOrder) => (
+                statusWait.map((order) => (
                   <li
                     key={order._id}
                     className={`${styles.item} text text_type_digits-default`}
